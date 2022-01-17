@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
 import com.qualcomm.hardware.motors.RevRobotics40HdHexMotor;
@@ -44,36 +44,37 @@ public class ChampBot_v2<Directionvector> {
     //Sensors
     //code time! :)
     private HardwareMap hardwareMap;
-    public void init(HardwareMap ahwMap){
-        hardwareMap=ahwMap;
+
+    public void init(HardwareMap ahwMap) {
+        hardwareMap = ahwMap;
         //configure the drive motors
 
-        DriveFrontLeft=hardwareMap.get(DcMotorEx.class,"DriveFrontLeft");
+        DriveFrontLeft = hardwareMap.get(DcMotorEx.class, "DriveFrontLeft");
         DriveFrontLeft.setDirection(DcMotor.Direction.FORWARD);
         DriveFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        DriveFrontRight=hardwareMap.get(DcMotorEx.class,"DriveFrontRight");
+        DriveFrontRight = hardwareMap.get(DcMotorEx.class, "DriveFrontRight");
         DriveFrontRight.setDirection(DcMotor.Direction.REVERSE);
         DriveFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        DriveBackLeft=hardwareMap.get(DcMotorEx.class, "DriveBackLeft");
+        DriveBackLeft = hardwareMap.get(DcMotorEx.class, "DriveBackLeft");
         DriveBackLeft.setDirection(DcMotor.Direction.FORWARD);
         DriveBackLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        DriveBackRight=hardwareMap.get(DcMotorEx.class,"DriveBackRight");
+        DriveBackRight = hardwareMap.get(DcMotorEx.class, "DriveBackRight");
         DriveBackRight.setDirection(DcMotor.Direction.REVERSE);
         DriveBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        ArmMotor=hardwareMap.dcMotor.get("ArmMotor");
+        ArmMotor = hardwareMap.dcMotor.get("ArmMotor");
         ArmMotor.setDirection(DcMotor.Direction.REVERSE);
         ArmMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        IntakeWheel=hardwareMap.dcMotor.get("IntakeWheel");
+        IntakeWheel = hardwareMap.dcMotor.get("IntakeWheel");
         IntakeWheel.setDirection(DcMotor.Direction.REVERSE);
         IntakeWheel.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         IntakeWheel.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -81,21 +82,23 @@ public class ChampBot_v2<Directionvector> {
         ArmServo = hardwareMap.servo.get("ArmServo");
 
         //shadow the motors with the odo encoders
-        encoderLeft=DriveFrontLeft;
-        encoderRight=DriveBackRight;
-        encoderAux=DriveFrontRight;
+        encoderLeft = DriveFrontLeft;
+        encoderRight = DriveBackRight;
+        encoderAux = DriveFrontRight;
 
         stop();
         resetDriveEncoders();
     }
+
     //a function to reset encoder
-    public void resetDriveEncoders(){
+    public void resetDriveEncoders() {
         DriveFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DriveFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DriveBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         DriveBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
     }
-    public void  enableEncoders() {
+
+    public void enableEncoders() {
         DriveFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         DriveFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         DriveBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -122,7 +125,7 @@ public class ChampBot_v2<Directionvector> {
     final static double B = 5.31; //Distance between the mid-point of the encoder 1, encoder 2 and encoder 3 in cm
     final static double R = 7.72; //Wheel Radius in cm
     final static double N = 8192; //encoder ticks per revolution, REV encoder
-    final static double cm_per_tick = 2.0 * Math.PI*R/N;
+    final static double cm_per_tick = 2.0 * Math.PI * R / N;
 
     //keep track of the odometry encoders between updates;
     public int currentRightPosition = 0;
@@ -132,6 +135,7 @@ public class ChampBot_v2<Directionvector> {
     private int oldRightPosition = 0;
     private int oldLeftPosition = 0;
     private int oldAuxPosition = 0;
+}
     /*************************************************************************************
      * Odometry
      * Notes:
@@ -141,7 +145,8 @@ public class ChampBot_v2<Directionvector> {
      * X, Y, Theta are the coordinates on the field and the heading of the robot.
      *************************************************************************************/
     //XyhVector is a tuple (x,y,h) where h is the angle, the heading of the robot.
-    public XyhVector START_POS = new XyhVector(213,102, Math.toRadians(-174));
+
+   /* public XyhVector START_POS = new XyhVector(213,102, Math.toRadians(-174));
     public XyhVector pos = new XyhVector(START_POS);
 
     public void odometry(){
@@ -171,3 +176,5 @@ public class ChampBot_v2<Directionvector> {
         pos.h += dtheta;
     }
 }
+}
+    */

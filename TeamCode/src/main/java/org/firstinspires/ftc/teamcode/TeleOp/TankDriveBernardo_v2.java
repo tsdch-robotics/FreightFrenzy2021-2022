@@ -43,7 +43,7 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 
 import org.firstinspires.ftc.robotcore.internal.camera.delegating.DelegatingCaptureSequence;
-import org.firstinspires.ftc.teamcode.Autonomous.ChampBot_v2;
+import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
 
 
 @TeleOp(name="TankDriveBernardo_v2", group="ChampBot")

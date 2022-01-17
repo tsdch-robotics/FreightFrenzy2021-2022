@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.Autonomous;
+package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
 import com.qualcomm.hardware.motors.RevRobotics40HdHexMotor;
@@ -153,6 +153,7 @@ public class ChampBot<Directionvector> {
      * X, Y, Theta are the coordinates on the field and the heading of the robot.
      *************************************************************************************/
     //XyhVector is a tuple (x,y,h) where h is the angle, the heading of the robot.
+    /*
     public XyhVector START_POS = new XyhVector(213,102, Math.toRadians(-174));
     public XyhVector pos = new XyhVector(START_POS);
 
@@ -182,4 +183,5 @@ public class ChampBot<Directionvector> {
         pos.y += dx * Math.sin(theta) + dy * Math.cos(theta);
         pos.h += dtheta;
     }
+*/
 }

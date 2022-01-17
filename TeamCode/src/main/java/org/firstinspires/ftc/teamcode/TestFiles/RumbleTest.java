@@ -1,4 +1,4 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
+package org.firstinspires.ftc.teamcode.TestFiles;
 
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
@@ -6,8 +6,8 @@ import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.Gamepad;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
-//@TeleOp(name="RumbleTest", group = "ChampBot")
-/*public class RumbleTest extends LinearOpMode
+@TeleOp(name="RumbleTest", group = "ChampBot")
+public class RumbleTest extends LinearOpMode
 {
     boolean lastA = false;
     boolean lastLB = false;
@@ -86,4 +86,4 @@ import com.qualcomm.robotcore.util.ElapsedTime;
     }
 }
 
- */
+

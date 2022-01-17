@@ -1,14 +1,11 @@
-package org.firstinspires.ftc.teamcode.TeleOp;
-
-import android.print.PrinterId;
+package org.firstinspires.ftc.teamcode.TestFiles;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 
-import org.firstinspires.ftc.teamcode.Autonomous.ChampBot_v2;
+import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
 
 public class PIDController extends LinearOpMode {
 
