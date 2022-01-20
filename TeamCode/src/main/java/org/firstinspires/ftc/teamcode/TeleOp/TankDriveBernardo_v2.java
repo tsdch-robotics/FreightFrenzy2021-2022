@@ -106,10 +106,10 @@ public class  TankDriveBernardo_v2 extends OpMode {
         double inf = Double.POSITIVE_INFINITY;
 
         //arm controls
-        if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0 && robot.ArmMotor.getCurrentPosition() < 365) {
+        if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0 && robot.ArmMotor.getCurrentPosition() < 1000) {
             robot.ArmMotor.setPower(0.4); //raise arm
         }
-        else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger > 0 && robot.ArmMotor.getCurrentPosition() > -502) {
+        else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger > 0 && robot.ArmMotor.getCurrentPosition() > -127) {
             robot.ArmMotor.setPower(-0.4); //lower arm
         }
         else {
