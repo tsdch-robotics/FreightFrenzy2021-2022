@@ -56,31 +56,23 @@ public class Lilly_2_BlueAutonomous extends LinearOpMode {
 
         waitForStart();
 
-        robot.Claw.setPosition(0);
-        encoderDrive(.5, 15, 15, 3.0); // 15
-        encoderTurn(.5, 1, Direction.right, 1.0);
-        encoderDrive(.5, 12, 12, 3.0);
-        encoderTurn(.5, 1, Direction.left, 1.0);
-        encoderArm(.5,800,3.0);
-        encoderDrive(0.1, 2.75, 2.75, 3.0); // 15
-        robot.Claw.setPosition(1.0);
-        sleep(250);
-        encoderDrive(0.1, -2, -2, 3.0); // 15
-        encoderTurn(.5, 1, Direction.right, 1.0);
-        encoderDrive(.5, 37.5,37.5,3);
-        encoderTurn(.5, .9, Direction.right, 1.0);
-        encoderDrive(.3, 12,12,3);
-        robot.CarouselMotor1.setPower(.5);
-        sleep(2500);
-        robot.CarouselMotor1.setPower(0);
-        encoderTurn(.5, 1, Direction.right, 1.0);
-        encoderDrive(.5,50,50,5.0);
-        encoderStrafe(.5,8, Direction.left,2.0);
-        encoderDrive(.5,30,30,3.0);
-        encoderStrafe(.5,20, Direction.right,2.0);
+        PositionDrive(0,0,Math.PI/2,20,20);
+        PositionDrive(20,20,Math.PI/4,0,0);
+
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
+    }
+
+    public void PositionDrive(double x_0, double y_0, double h, double x_1, double y_1){
+        double D=Math.pow((Math.pow((x_1-x_0),2)+Math.pow((y_1-y_0),2)),1/2);
+        double a=Math.acos((x_1*Math.cos(h)+y_1*Math.sin(h))/D);
+        if (a>0){
+            encoderTurn(.5,a,Direction.right,20);
+        }else if(a<0){
+            encoderTurn(.5,a,Direction.left,20);
+        }
+        encoderDrive(.5,D,D,20);
     }
     public void encoderDrive (double speed, double leftInches, double rightInches, double timeoutS) {
         int newFrontLeftTarget;
