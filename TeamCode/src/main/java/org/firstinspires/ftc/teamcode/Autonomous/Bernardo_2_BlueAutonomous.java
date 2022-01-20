@@ -53,52 +53,57 @@ public class Bernardo_2_BlueAutonomous extends LinearOpMode {
         telemetry.update();
 
         waitForStart();
-
+        
         // first cycle
-        encoderDrive(.5,-14,-14,3.0);
+        robot.ArmMotor.setTargetPosition(300);
+        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.ArmMotor.setPower(.5);
+        sleep(250);
+        encoderDrive(.5,-18,-18,3.0);
         robot.ArmServo.setPosition(1);
         sleep(750);
-        encoderStrafe(.5,20, Direction.right,3.0); //straft left
+        encoderStrafe(.5,25, Direction.right,3.0); //straft left
         sleep(750);
         robot.IntakeWheel.setPower(.4);
-        sleep(2000);//drop block
+        sleep(1000);//drop block
         robot.IntakeWheel.setPower(0);
-        encoderStrafe(.5,15, Direction.left,3.0); //strafe right
-        encoderStrafe(.2,10, Direction.left,3.0); //align against wall
         robot.ArmServo.setPosition(0.34); //position arm to straight
+        encoderStrafe(.5,17, Direction.left,3.0); //strafe right
+        encoderStrafe(.2,7, Direction.left,3.0); //align against wall
         sleep(750);
-        encoderDrive(.5,23,23,3.0); //dirve forward a bit
+        encoderDrive(.5,30,30,3.0); //dirve forward a bit
         //need to set arm to correct hight to intake block
-        robot.ArmMotor.setTargetPosition(-502);
+        robot.ArmMotor.setTargetPosition(-127);
         robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.ArmMotor.setPower(1);
         while (robot.ArmMotor.isBusy()) {
 
         }
         robot.IntakeWheel.setPower(-.4);
-        encoderDriveAndIntake(.2,15,15,3.0); //drive forward slowly while spinning intake wheel
+        encoderDriveAndIntake(.2,20,20,3.0); //drive forward slowly while spinning intake wheel
+        sleep(1000);
         robot.IntakeWheel.setPower(0);
         //need to set arm back to original height
-        robot.ArmMotor.setTargetPosition(365);
+        robot.ArmMotor.setTargetPosition(60);
         robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.ArmMotor.setPower(1);
         while (robot.ArmMotor.isBusy()) {
 
         }
-        encoderDrive(-.5,-38,-38,4.0); //drive backwards to original position
+        encoderDrive(-.5,-35,-35,4.0); //drive backwards to original position
 
         //second cycle
         encoderDrive(.5,-14,-14,3.0);
         robot.ArmServo.setPosition(1);
         sleep(750);
-        encoderStrafe(.5,20, Direction.right,3.0); //straft left
+        encoderStrafe(.5,23, Direction.right,3.0); //straft left
         sleep(750);
         robot.IntakeWheel.setPower(.4);
         sleep(2000);//drop block
         robot.IntakeWheel.setPower(0);
+        robot.ArmServo.setPosition(0.34); //position arm to straight
         encoderStrafe(.5,15, Direction.left,3.0); //strafe right
         encoderStrafe(.2,10, Direction.left,3.0); //align against wall
-        robot.ArmServo.setPosition(0.34); //position arm to straight
         sleep(750);
         encoderDrive(.5,23,23,3.0); //dirve forward a bit
         //need to set arm to correct hight to intake block
@@ -109,7 +114,7 @@ public class Bernardo_2_BlueAutonomous extends LinearOpMode {
 
         }
         robot.IntakeWheel.setPower(-.4);
-        encoderDriveAndIntake(.2,15,15,3.0); //drive forward slowly while spinning intake wheel
+        encoderDriveAndIntake(.2,17,17,3.0); //drive forward slowly while spinning intake wheel
         robot.IntakeWheel.setPower(0);
         //need to set arm back to original height
         robot.ArmMotor.setTargetPosition(365);
@@ -118,73 +123,6 @@ public class Bernardo_2_BlueAutonomous extends LinearOpMode {
         while (robot.ArmMotor.isBusy()) {
 
         }
-        encoderDrive(-.5,-38,-38,4.0); //drive backwards to original position
-
-        //third cycle
-        encoderDrive(.5,-14,-14,3.0);
-        robot.ArmServo.setPosition(1);
-        sleep(750);
-        encoderStrafe(.5,20, Direction.right,3.0); //straft left
-        sleep(750);
-        robot.IntakeWheel.setPower(.4);
-        sleep(2000);//drop block
-        robot.IntakeWheel.setPower(0);
-        encoderStrafe(.5,15, Direction.left,3.0); //strafe right
-        encoderStrafe(.2,10, Direction.left,3.0); //align against wall
-        robot.ArmServo.setPosition(0.34); //position arm to straight
-        sleep(750);
-        encoderDrive(.5,23,23,3.0); //dirve forward a bit
-        //need to set arm to correct hight to intake block
-        robot.ArmMotor.setTargetPosition(-502);
-        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.ArmMotor.setPower(1);
-        while (robot.ArmMotor.isBusy()) {
-
-        }
-        robot.IntakeWheel.setPower(-.4);
-        encoderDriveAndIntake(.2,15,15,3.0); //drive forward slowly while spinning intake wheel
-        robot.IntakeWheel.setPower(0);
-        //need to set arm back to original height
-        robot.ArmMotor.setTargetPosition(365);
-        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.ArmMotor.setPower(1);
-        while (robot.ArmMotor.isBusy()) {
-
-        }
-        encoderDrive(-.5,-38,-38,4.0); //drive backwards to original position
-
-        //fourth cycle
-        encoderDrive(.5,-14,-14,3.0);
-        robot.ArmServo.setPosition(1);
-        sleep(750);
-        encoderStrafe(.5,20, Direction.right,3.0); //straft left
-        sleep(750);
-        robot.IntakeWheel.setPower(.4);
-        sleep(2000);//drop block
-        robot.IntakeWheel.setPower(0);
-        encoderStrafe(.5,15, Direction.left,3.0); //strafe right
-        encoderStrafe(.2,10, Direction.left,3.0); //align against wall
-        robot.ArmServo.setPosition(0.34); //position arm to straight
-        sleep(750);
-        encoderDrive(.5,23,23,3.0); //dirve forward a bit
-        //need to set arm to correct hight to intake block
-        robot.ArmMotor.setTargetPosition(-502);
-        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.ArmMotor.setPower(1);
-        while (robot.ArmMotor.isBusy()) {
-
-        }
-        robot.IntakeWheel.setPower(-.4);
-        encoderDriveAndIntake(.2,15,15,3.0); //drive forward slowly while spinning intake wheel
-        robot.IntakeWheel.setPower(0);
-        //need to set arm back to original height
-        robot.ArmMotor.setTargetPosition(365);
-        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-        robot.ArmMotor.setPower(1);
-        while (robot.ArmMotor.isBusy()) {
-
-        }
-        encoderDrive(-.5,-38,-38,4.0); //drive backwards to original position
 
 
         //old code for ducks + 1 frieght
