@@ -27,7 +27,7 @@ public class ChampBot_v2<Directionvector> {
     public static final Double TRIGGER_THRESHOLD = 0.5;//gamepad trigger
     //1080 = 270 degrees
     //robot variables
-    public double position = 0.5;
+    public double startingEncoderCount = 0.5;
     //Drive Motors
     public DcMotorEx DriveFrontLeft; //:D
     public DcMotorEx DriveFrontRight;
