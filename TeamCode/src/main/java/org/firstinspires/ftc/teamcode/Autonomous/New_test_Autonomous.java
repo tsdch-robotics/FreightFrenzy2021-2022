@@ -53,21 +53,23 @@ public class New_test_Autonomous extends LinearOpMode {
         waitForStart();
 
         robot.ArmServo.setPosition(0.34);
-        PositionDrive(0,0,Math.PI/2,100,100);
-        PositionDrive(100,100,Math.PI/4,0,0);
+        PositionDrive(0,0,Math.PI/2,100,100, Math.PI/2);
+        PositionDrive(100,100,Math.PI/2,0,0,Math.PI/2);
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
-    public void PositionDrive(double x_0, double y_0, double h, double x_1, double y_1){
+    public void PositionDrive(double x_0, double y_0, double h_0, double x_1, double y_1, double h_1){
         double D=Math.pow((Math.pow((x_1-x_0),2)+Math.pow((y_1-y_0),2)),1/2);
-        double a=Math.acos((x_1*Math.cos(h)+y_1*Math.sin(h))/D);
+        double a=Math.acos((x_1*Math.cos(h_0)+y_1*Math.sin(h_0))/D);
         if (a>0){
             encoderTurn(.5,a, Direction.right,20);
         }else if(a<0){
             encoderTurn(.5,a, Direction.left,20);
         }
         encoderDrive(.5,D,D,20);
+
+
     }
     public void encoderDrive (double speed, double leftInches, double rightInches, double timeoutS) {
         int newFrontLeftTarget;

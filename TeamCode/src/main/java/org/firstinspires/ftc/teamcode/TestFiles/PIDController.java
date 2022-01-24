@@ -1,6 +1,7 @@
 package org.firstinspires.ftc.teamcode.TestFiles;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.DcMotor;
@@ -8,12 +9,14 @@ import com.qualcomm.robotcore.util.SerialNumber;
 
 import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
 
+@Autonomous(name="PID", group="ChampBot")
+
 public abstract class PIDController extends LinearOpMode {
 
     private BNO055IMU imu; //model number of inertial measurement unit in REV Expansion hub
 
     double integralSum = 0;
-    double Kp = 0;
+    double Kp = 1;
     double Ki = 0;
     double Kd = 0;
 
@@ -26,6 +29,8 @@ public abstract class PIDController extends LinearOpMode {
         ChampBot_v2 robot = new ChampBot_v2();
         robot.init(hardwareMap);
 
+        waitForStart();
+
         robot.DriveFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.DriveBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -36,8 +41,6 @@ public abstract class PIDController extends LinearOpMode {
         parameters.mode = BNO055IMU.SensorMode.IMU;
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         imu.initialize(parameters);
-
-        waitForStart();
 
         double referenceAngle = Math.toRadians(90);
 
