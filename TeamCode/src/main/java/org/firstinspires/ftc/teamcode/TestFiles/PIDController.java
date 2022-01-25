@@ -42,6 +42,8 @@ public abstract class PIDController extends LinearOpMode {
         parameters.angleUnit = BNO055IMU.AngleUnit.RADIANS;
         imu.initialize(parameters);
 
+        waitForStart();
+
         double referenceAngle = Math.toRadians(90);
 
         while (opModeIsActive()) {
