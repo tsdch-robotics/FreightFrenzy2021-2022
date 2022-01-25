@@ -107,7 +107,7 @@ public class Bernardo_2_RedAutonomous extends LinearOpMode {
         robot.ArmServo.setPosition(0.34); //position arm to straight
         sleep(250);
         encoderStrafe(.5,20, Direction.right,3.0); //strafe right
-        encoderStrafe(.2,10, Direction.right,3.0); //align against wall
+        encoderStrafe(.2,7, Direction.right,3.0); //align against wall
         sleep(750);
         encoderDrive(.5,23,23,3.0); //dirve forward a bit
         //need to set arm to correct hight to intake block
