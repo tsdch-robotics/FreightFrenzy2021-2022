@@ -76,7 +76,7 @@ public class Bernardo_2_RedAutonomous extends LinearOpMode {
         sleep(750);
         encoderDrive(.5,20,20,3.0); //dirve forward a bit
         //need to set arm to correct hight to intake block
-        robot.ArmMotor.setTargetPosition(0);
+        robot.ArmMotor.setTargetPosition(-50);
         robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.ArmMotor.setPower(.5);
         while (robot.ArmMotor.isBusy()) {
@@ -87,7 +87,7 @@ public class Bernardo_2_RedAutonomous extends LinearOpMode {
         sleep(1000);
         robot.IntakeWheel.setPower(0);
         //need to set arm back to original height
-        robot.ArmMotor.setTargetPosition(300);
+        robot.ArmMotor.setTargetPosition(500);
         robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.ArmMotor.setPower(1);
         while (robot.ArmMotor.isBusy()) {
@@ -99,19 +99,19 @@ public class Bernardo_2_RedAutonomous extends LinearOpMode {
         encoderDrive(.5,-10,-10,3.0);
         robot.ArmServo.setPosition(0);
         sleep(750);
-        encoderStrafe(.5,17, Direction.left,3.0); //straft left
+        encoderStrafe(.5,20, Direction.left,3.0); //strafe left
         sleep(750);
         robot.IntakeWheel.setPower(.4);
         sleep(2000);//drop block
         robot.IntakeWheel.setPower(0);
         robot.ArmServo.setPosition(0.34); //position arm to straight
         sleep(250);
-        encoderStrafe(.5,20, Direction.right,3.0); //strafe right
-        encoderStrafe(.2,7, Direction.right,3.0); //align against wall
+        encoderStrafe(.5,16, Direction.right,3.0); //strafe right
+        encoderStrafe(.2,10, Direction.right,3.0); //align against wall
         sleep(750);
         encoderDrive(.5,23,23,3.0); //dirve forward a bit
         //need to set arm to correct hight to intake block
-        robot.ArmMotor.setTargetPosition(0);
+        robot.ArmMotor.setTargetPosition(-100);
         robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
         robot.ArmMotor.setPower(1);
         while (robot.ArmMotor.isBusy()) {
