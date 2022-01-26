@@ -59,6 +59,7 @@ public abstract class PIDController extends LinearOpMode {
             robot.DriveBackLeft.setPower(power);
             robot.DriveBackRight.setPower(power);
         }
+        sleep(2000);
     }
 
     public double PIDControl(double reference, double state) {
