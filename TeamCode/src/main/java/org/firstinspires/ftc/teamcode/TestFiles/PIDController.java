@@ -25,11 +25,9 @@ public abstract class PIDController extends LinearOpMode {
 
     @Override
 
-    public void runOpMode() throws InterruptedException {
+    public void runOpMode() {
         ChampBot_v2 robot = new ChampBot_v2();
         robot.init(hardwareMap);
-
-        waitForStart();
 
         robot.DriveFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
         robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
@@ -47,6 +45,10 @@ public abstract class PIDController extends LinearOpMode {
         double referenceAngle = Math.toRadians(90);
 
         while (opModeIsActive()) {
+
+            telemetry.addData("MotorCount: ", robot.DriveFrontLeft.getCurrentPosition());
+            sleep(2000);
+
             double power = PIDControl(100, robot.DriveFrontLeft.getCurrentPosition()); //This references one motor, can use multiple as reference if calculate powers for separate motors
             robot.DriveFrontLeft.setPower(power);
             robot.DriveFrontRight.setPower(power);
@@ -64,6 +66,18 @@ public abstract class PIDController extends LinearOpMode {
 
     public double PIDControl(double reference, double state) {
         double error = reference - state;
+        integralSum += error * timer.seconds();
+        double derivative = (error - lastError) / timer.seconds();
+        lastError = error;
+
+        timer.reset();
+
+        double output = (error * Kp) + (derivative * Kd) + (integralSum * Ki);
+        return output;
+    }
+
+    public double AngleControl(double reference, double imuangle) {
+        double error = reference - imuangle;
         integralSum += error * timer.seconds();
         double derivative = (error - lastError) / timer.seconds();
         lastError = error;
