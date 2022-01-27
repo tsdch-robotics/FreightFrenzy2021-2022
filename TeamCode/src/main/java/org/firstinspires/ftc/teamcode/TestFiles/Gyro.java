@@ -12,6 +12,7 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesOrder;
 import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
+import java.lang.*;
 
 @Config
 @Autonomous(name = "Gyro", group="ChampBot")
@@ -39,11 +40,16 @@ public class Gyro extends LinearOpMode {
 
         waitForStart();
 
-        turn(90);
+        telemetry.addData("It started!!!", null);
+        telemetry.update();
+
+        //turn(90);
         telemetry.addData("Turning right...",null);
+        telemetry.update();
         sleep(3000);
         turnTo(-90);
         telemetry.addData("Turning left...",null);
+        telemetry.update();
         sleep(3000);
         //moveToPid(1000);
         //telemetry.addData("Moving...",null);
@@ -52,13 +58,13 @@ public class Gyro extends LinearOpMode {
     }
     //set angle back to 0
     public void resetAngle(){
-        lastAngles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        lastAngles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
         currAngle = 0;
     }
 
     //Get current angle
     public double getAngle() {
-        Orientation orientation = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Orientation orientation = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
 
         double deltaAngle = orientation.firstAngle - lastAngles.firstAngle;
 
@@ -74,7 +80,7 @@ public class Gyro extends LinearOpMode {
     }
 
     public double getAbsoluteAngle() {
-        return robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES).firstAngle;
+        return robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES).firstAngle;
     }
 
     void turnToPid(double targetAngle) {
@@ -85,16 +91,18 @@ public class Gyro extends LinearOpMode {
         }
         robot.setAllPower(0);
     }
-/*
+
     void moveToPid ( double targetEncoder) {
         DrivePIDController pidDrive = new DrivePIDController(targetEncoder, 1, 0 , .5);
         while (opModeIsActive() && Math.abs(targetEncoder - getCurrentPosition()) > 1) {
             double motorPower = pidDrive.update(getCurrentPosition());
+            telemetry.addData("motorPower: ", motorPower);
+            telemetry.update();
             robot.setMotorPower(motorPower,motorPower,motorPower,motorPower);
         }
         robot.setAllPower(0);
     }
-*/
+
     public double getCurrentPosition() {
         return robot.DriveFrontLeft.getCurrentPosition();
     }
@@ -103,28 +111,9 @@ public class Gyro extends LinearOpMode {
         turnToPid(degrees + getAbsoluteAngle());
     }
 
-    //turn a certain # of degrees
-    public void turn(double degrees) {
 
-        resetAngle();
-
-        double error = degrees;
-
-        while (opModeIsActive() && Math.abs(error) > 2) {
-            double motorPower = (error < 0 ? -0.3 : 0.3);
-            robot.setMotorPower(motorPower, -motorPower, motorPower, -motorPower);
-            error = degrees - getAngle();
-            telemetry.addData("error: ", error);
-
-        }
-
-        robot.setAllPower(0);
-
-    }
-
-    //turn to a degree
     public void turnTo(double degrees) {
-        Orientation orientation = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.ZYX, AngleUnit.DEGREES);
+        Orientation orientation = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
 
         double error = degrees - orientation.firstAngle;
 
@@ -137,5 +126,30 @@ public class Gyro extends LinearOpMode {
         turn(error);
 
     }
+
+    //turn a certain # of degrees
+    public void turn(double degrees) {
+
+        resetAngle();
+
+        double error = degrees;
+
+        while (opModeIsActive() && Math.abs(error) > 2) {
+            double motorPower = (error < 0 ? -0.3 : 0.3);
+            //robot.setMotorPower(motorPower, -motorPower, motorPower, -motorPower);
+            robot.DriveFrontLeft.setPower(motorPower);
+            robot.DriveFrontRight.setPower(-motorPower);
+            robot.DriveBackLeft.setPower(motorPower);
+            robot.DriveBackRight.setPower(-motorPower);
+            error = degrees - getAngle();
+            telemetry.addData("error: ", error);
+            telemetry.update();
+
+        }
+
+        robot.setAllPower(0);
+
+    }
+
 
 }
