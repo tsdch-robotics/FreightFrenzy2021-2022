@@ -1,5 +1,7 @@
 package org.firstinspires.ftc.teamcode.Hardware;
 
+import com.qualcomm.hardware.bosch.BNO055IMU;
+import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
 import com.qualcomm.hardware.motors.RevRobotics40HdHexMotor;
 import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
@@ -23,7 +25,7 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
  * This is NOT an opmode. This file defines all the hardware on the robot
  * and some common helper functions (stop motors, reset encoders, etc.)
  */
-public class ChampBot_v2<Directionvector> {
+public class ChampBot_v2 {
     public static final Double TRIGGER_THRESHOLD = 0.5;//gamepad trigger
     //1080 = 270 degrees
     //robot variables
@@ -42,6 +44,8 @@ public class ChampBot_v2<Directionvector> {
     public DcMotor encoderRight;
     public DcMotor encoderAux;
     //Sensors
+    //Gyro
+    BNO055IMU imu;
 
     //Vuforia Key
     public static final String VUFORIA_KEY = "AT3AS3b/////AAABmeb4lXVRG0y7kvB4fG/FtbKNEuekc1o6rkU8fj5JsakaaPPNIV+ZalkosfH2Zl513dKhMTyUF6YtHzQUr07sQDtKs2GbaulwZFC5yov+tEsgEHA+OWVni0f18T87qrboMBnj61MUqZP4BvjPib2R1rxEr3Cj4YS9c9RnkUESyTBI6B/gCtBFLNKh7cX9PKJnKCgkVF9qexL2eu2lRS1iNAl9VsjBel6RSckVjGEo90+DSyVMgUtew2GNk8IokXYlBHlK7MY6ju3Kb1dFyLLm0RPcXxqvA3pIPNbk8Rsuv75xhBGBRMVpgteBaaWZz6YUowvEv5YfGdTjy1kmQyzufcwqvMY038k0BzPCUGXE77Md";
@@ -91,6 +95,18 @@ public class ChampBot_v2<Directionvector> {
 
         stop();
         resetDriveEncoders();
+
+        BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
+        parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
+        parameters.accelUnit = BNO055IMU.AccelUnit.METERS_PERSEC_PERSEC;
+        parameters.calibrationDataFile = "BNO055IMUCalibration.json";
+        parameters.loggingEnabled = true;
+        parameters.loggingTag = "IMU";
+        parameters.accelerationIntegrationAlgorithm = new JustLoggingAccelerationIntegrator();
+
+        imu = (BNO055IMU) hardwareMap.get("imu");
+        imu.initialize(parameters);
+
     }
 
     //a function to reset encoder
@@ -116,68 +132,14 @@ public class ChampBot_v2<Directionvector> {
         DriveBackLeft.setPower(0);
     }
 
-    public void setDriveMotors(double FrontL, double FrontR, double BackL, double BackR) {
+    public void setAllPower(double p) {
+        setMotorPower(p,p,p,p);
+    }
+
+    public void setMotorPower(double FrontL, double FrontR, double BackL, double BackR) {
         DriveFrontLeft.setPower(FrontL);
         DriveFrontRight.setPower(FrontR);
         DriveBackLeft.setPower(BackL);
         DriveBackRight.setPower(BackR);
     }
-
-    //constants that define the geometry of the robot:
-    final static double L = 13.5; //distance between encoder 1 and 2 in cm
-    final static double B = 5.31; //Distance between the mid-point of the encoder 1, encoder 2 and encoder 3 in cm
-    final static double R = 7.72; //Wheel Radius in cm
-    final static double N = 8192; //encoder ticks per revolution, REV encoder
-    final static double cm_per_tick = 2.0 * Math.PI * R / N;
-
-    //keep track of the odometry encoders between updates;
-    public int currentRightPosition = 0;
-    public int currentLeftPosition = 0;
-    public int currentAuxPosition = 0;
-
-    private int oldRightPosition = 0;
-    private int oldLeftPosition = 0;
-    private int oldAuxPosition = 0;
 }
-    /*************************************************************************************
-     * Odometry
-     * Notes:
-     * n1, n2, n3 are encode values for the left, right, and back (aux) omniwheels
-     * dn1, dn2, dn3 are the differences of encoder values between two reads
-     * dx, dy, dtheta describe the robot movement between two reads (in robot coordinates)
-     * X, Y, Theta are the coordinates on the field and the heading of the robot.
-     *************************************************************************************/
-    //XyhVector is a tuple (x,y,h) where h is the angle, the heading of the robot.
-
-   /* public XyhVector START_POS = new XyhVector(213,102, Math.toRadians(-174));
-    public XyhVector pos = new XyhVector(START_POS);
-
-    public void odometry(){
-
-        //getting the position information from the encoders
-        oldRightPosition = currentRightPosition;
-        oldLeftPosition = currentLeftPosition;
-        oldAuxPosition = currentAuxPosition;
-
-        currentRightPosition = -encoderRight.getCurrentPosition();
-        currentLeftPosition = -encoderLeft.getCurrentPosition();
-        currentAuxPosition = encoderAux.getCurrentPosition();
-
-        int dn1 = currentLeftPosition - oldLeftPosition;
-        int dn2 = currentRightPosition - oldRightPosition;
-        int dn3 = currentAuxPosition - oldAuxPosition;
-
-        //record the change in position of the robot between two measurements over a very small time interval
-        double dtheta = cm_per_tick * (dn2-dn1)/L;
-        double dx = cm_per_tick * (dn1+dn2)/2.0;
-        double dy = cm_per_tick * (dn3-(dn2-dn1) * B / L);
-
-        //trnasfer the robot coordinate into the field coordinate
-        double theta = pos.h +(dtheta / 2.0);
-        pos.x += dx * Math.cos(theta) - dy * Math.sin(theta);
-        pos.y += dx * Math.sin(theta) + dy * Math.cos(theta);
-        pos.h += dtheta;
-    }
-}
-}
-    */

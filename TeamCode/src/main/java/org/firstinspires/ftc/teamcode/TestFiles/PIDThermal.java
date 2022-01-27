@@ -11,9 +11,9 @@ import com.qualcomm.robotcore.util.SerialNumber;
 
 import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
 @Config
-@Autonomous(name="PID", group="ChampBot")
+@Autonomous(name="PID-Thermal", group="ChampBot")
 
-public class PIDController extends LinearOpMode {
+public class PIDThermal extends LinearOpMode {
 
 
     //private BNO055IMU imu; //model number of inertial measurement unit in REV Expansion hub

@@ -70,11 +70,11 @@ public class  TankDriveBernardo_v2 extends OpMode {
     }
 
     public void RightStrafe(double Power) {
-        robot.setDriveMotors(-Power, -Power, Power, -Power);
+        robot.setMotorPower(-Power, -Power, Power, -Power);
     }
 
     public void LeftStrafe(double Power) {
-        robot.setDriveMotors(Power, Power, -Power, Power);
+        robot.setMotorPower(Power, Power, -Power, Power);
     }
 
     public void MotorsStopped() {
@@ -145,16 +145,16 @@ public class  TankDriveBernardo_v2 extends OpMode {
         }
 
         if (gamepad1.dpad_right) {
-            robot.setDriveMotors(.75, -.75, -.75, .75);
+            robot.setMotorPower(.75, -.75, -.75, .75);
         } else if (gamepad1.dpad_left) {
-            robot.setDriveMotors(-.75, .75, .75, -.75);
+            robot.setMotorPower(-.75, .75, .75, -.75);
         } else if (gamepad1.dpad_up) {
-            robot.setDriveMotors(.75, .75, .75, .75);
+            robot.setMotorPower(.75, .75, .75, .75);
         } else if (gamepad1.dpad_down) {
-            robot.setDriveMotors(-.75, -.75, -.75, -.75);
+            robot.setMotorPower(-.75, -.75, -.75, -.75);
         }
         if (!gamepad1.dpad_up && !gamepad1.dpad_down && !gamepad1.dpad_left && !gamepad1.dpad_right) {
-            robot.setDriveMotors(-DLY, -DRY, -DLY, -DRY);
+            robot.setMotorPower(-DLY, -DRY, -DLY, -DRY);
         }
         telemetry.addData("Arm position : ", robot.ArmMotor.getCurrentPosition());
         telemetry.addData("Servo Position: ", robot.ArmServo.getPosition());

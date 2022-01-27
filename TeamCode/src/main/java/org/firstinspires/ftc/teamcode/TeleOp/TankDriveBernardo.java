@@ -30,7 +30,7 @@ CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR
 TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF
 THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
-
+/*
 package org.firstinspires.ftc.teamcode.TeleOp;
 
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
@@ -59,7 +59,7 @@ public class TankDriveBernardo extends OpMode {
          * Use the hardwareMap to get the dc motors and servos by name. Note
          * that the names of the devices must match the names used when you
          * configured your robot and created the configuration file.
-         */
+
 
         robot.init(hardwareMap);
         robot.DriveFrontLeft.setPower(0);
@@ -133,7 +133,7 @@ public class TankDriveBernardo extends OpMode {
             rightPower = (float) (rightPower  *0.75);
             telemetry.addData("Power R: ", rightPower);
             telemetry.addData("Power L: ", leftPower);
-*/
+
 
         if (gamepad1.dpad_right){
             robot.setDriveMotors(.75, -.75, -.75, .75);
@@ -234,6 +234,8 @@ public class TankDriveBernardo extends OpMode {
             robot.ArmMotor.setDirection(DcMotor.Direction.FORWARD);
         }
         robot.ArmMotor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-*/
+
     }
 }
+
+ */
