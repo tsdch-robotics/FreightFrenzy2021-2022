@@ -1,5 +1,6 @@
 package org.firstinspires.ftc.teamcode.TestFiles;
 
+import com.acmerobotics.dashboard.FtcDashboard;
 import com.qualcomm.robotcore.eventloop.opmode.Disabled;
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -20,7 +21,6 @@ import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
 public class Camera extends LinearOpMode {
 
     ChampBot_v2 robot = new ChampBot_v2();
-
     private ElapsedTime runtime = new ElapsedTime();
 
     private static final String TFOD_MODEL_ASSET = "UltimateGoal.tflite";

@@ -1,6 +1,8 @@
 package org.firstinspires.ftc.teamcode.TestFiles;
 
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
@@ -11,25 +13,41 @@ import org.firstinspires.ftc.robotcore.external.navigation.AxesReference;
 import org.firstinspires.ftc.robotcore.external.navigation.Orientation;
 import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
 
+@Config
 @Autonomous(name = "Gyro", group="ChampBot")
 public class Gyro extends LinearOpMode {
 
     ChampBot_v2 robot = new ChampBot_v2();
+
+    FtcDashboard dashboard;
+
     private ElapsedTime runtime = new ElapsedTime();
 
     private Orientation lastAngles = new Orientation();
     private double currAngle = 0.0;
+
+    public static double kP = 5;
+    public static double kI = 0;
+    public static double kD = 1;
 
     @Override
     public void runOpMode() {
 
         robot.init(hardwareMap);
 
+        dashboard = FtcDashboard.getInstance();
+
         waitForStart();
 
         turn(90);
+        telemetry.addData("Turning right...",null);
         sleep(3000);
         turnTo(-90);
+        telemetry.addData("Turning left...",null);
+        sleep(3000);
+        //moveToPid(1000);
+        //telemetry.addData("Moving...",null);
+        //sleep(3000);
 
     }
     //set angle back to 0
@@ -60,23 +78,23 @@ public class Gyro extends LinearOpMode {
     }
 
     void turnToPid(double targetAngle) {
-        TurnPIDController pidTurn = new TurnPIDController(targetAngle, 0.01,0,0.003);
+        TurnPIDController pidTurn = new TurnPIDController(targetAngle, 1,0,.5);
         while (opModeIsActive() && Math.abs(targetAngle - getAbsoluteAngle()) > 1) {
             double motorPower = pidTurn.update(getAbsoluteAngle());
             robot.setMotorPower(motorPower,motorPower,motorPower,motorPower);
         }
         robot.setAllPower(0);
     }
-
+/*
     void moveToPid ( double targetEncoder) {
-        DrivePIDController pidDrive = new DrivePIDController(targetEncoder, 0.01, 0 , 0.003);
+        DrivePIDController pidDrive = new DrivePIDController(targetEncoder, 1, 0 , .5);
         while (opModeIsActive() && Math.abs(targetEncoder - getCurrentPosition()) > 1) {
             double motorPower = pidDrive.update(getCurrentPosition());
             robot.setMotorPower(motorPower,motorPower,motorPower,motorPower);
         }
         robot.setAllPower(0);
     }
-
+*/
     public double getCurrentPosition() {
         return robot.DriveFrontLeft.getCurrentPosition();
     }
@@ -94,7 +112,7 @@ public class Gyro extends LinearOpMode {
 
         while (opModeIsActive() && Math.abs(error) > 2) {
             double motorPower = (error < 0 ? -0.3 : 0.3);
-            robot.setMotorPower(motorPower, motorPower, motorPower, motorPower);
+            robot.setMotorPower(motorPower, -motorPower, motorPower, -motorPower);
             error = degrees - getAngle();
             telemetry.addData("error: ", error);
 

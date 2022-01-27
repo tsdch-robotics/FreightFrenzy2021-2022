@@ -1,19 +1,27 @@
 package org.firstinspires.ftc.teamcode.TestFiles;
 
+import com.acmerobotics.dashboard.FtcDashboard;
+import com.acmerobotics.dashboard.config.Config;
+import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
+import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
+
+@Config
+
 public class DrivePIDController {
+    FtcDashboard dashboard;
     private double targetEncoder;
-    private double kP, kI, kD;
+    public static double kPd, kId, kDd;
     private double accumulatedError = 0;
     private ElapsedTime timer = new ElapsedTime();
     private double lastError = 0;
     private double lastTime = 0;
     public DrivePIDController(double target, double p, double i, double d) {
         targetEncoder = target;
-        kP = p;
-        kI = i;
-        kD = d;
+        kPd = p;
+        kId = i;
+        kDd = d;
     }
     public double update(double currentPosition) {
         // P
@@ -35,7 +43,9 @@ public class DrivePIDController {
         lastError = error;
 
         //motor power calculations
-        double motorPower = 0.1 * Math.signum(error) + 0.9 * Math.tanh(kP * error + kI * accumulatedError + kD * slope);
+        double motorPower = 0.1 * Math.signum(error) + 0.9 * Math.tanh(kPd * error + kId * accumulatedError + kDd * slope);
         return motorPower;
+
     }
+
 }
