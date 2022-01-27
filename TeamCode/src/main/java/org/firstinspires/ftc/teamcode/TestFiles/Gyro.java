@@ -60,12 +60,25 @@ public class Gyro extends LinearOpMode {
     }
 
     void turnToPid(double targetAngle) {
-        TurnPIDController pid = new TurnPIDController(targetAngle, 0.01,0,0.003);
+        TurnPIDController pidTurn = new TurnPIDController(targetAngle, 0.01,0,0.003);
         while (opModeIsActive() && Math.abs(targetAngle - getAbsoluteAngle()) > 1) {
-            double motorPower = pid.update(getAbsoluteAngle());
+            double motorPower = pidTurn.update(getAbsoluteAngle());
             robot.setMotorPower(motorPower,motorPower,motorPower,motorPower);
         }
         robot.setAllPower(0);
+    }
+
+    void moveToPid ( double targetEncoder) {
+        DrivePIDController pidDrive = new DrivePIDController(targetEncoder, 0.01, 0 , 0.003);
+        while (opModeIsActive() && Math.abs(targetEncoder - getCurrentPosition()) > 1) {
+            double motorPower = pidDrive.update(getCurrentPosition());
+            robot.setMotorPower(motorPower,motorPower,motorPower,motorPower);
+        }
+        robot.setAllPower(0);
+    }
+
+    public double getCurrentPosition() {
+        return robot.DriveFrontLeft.getCurrentPosition();
     }
 
     void turnPID(double degrees) {
