@@ -5,6 +5,7 @@ import com.acmerobotics.dashboard.FtcDashboard;
 import com.acmerobotics.dashboard.config.Config;
 import com.qualcomm.robotcore.eventloop.opmode.Autonomous;
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.robotcore.external.navigation.AngleUnit;
@@ -30,6 +31,10 @@ public class Gyro extends LinearOpMode {
     public static double kP = 5;
     public static double kI = 0;
     public static double kD = 1;
+    public DcMotor DriveFrontLeft; //:D
+    public DcMotor DriveFrontRight;
+    public DcMotor DriveBackLeft;
+    public DcMotor DriveBackRight;
 
     @Override
     public void runOpMode() {
@@ -40,10 +45,15 @@ public class Gyro extends LinearOpMode {
 
         waitForStart();
 
+        robot.DriveFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.DriveBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.DriveBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
         telemetry.addData("It started!!!", null);
         telemetry.update();
 
-        //turn(90);
+        turn(90);
         telemetry.addData("Turning right...",null);
         telemetry.update();
         sleep(3000);
@@ -51,20 +61,21 @@ public class Gyro extends LinearOpMode {
         telemetry.addData("Turning left...",null);
         telemetry.update();
         sleep(3000);
-        //moveToPid(1000);
-        //telemetry.addData("Moving...",null);
-        //sleep(3000);
+        moveToPid(1000);
+        telemetry.addData("Moving...",null);
+        telemetry.update();
+        sleep(3000);
 
     }
     //set angle back to 0
     public void resetAngle(){
-        lastAngles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
+        lastAngles = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
         currAngle = 0;
     }
 
     //Get current angle
     public double getAngle() {
-        Orientation orientation = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
+        Orientation orientation = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
 
         double deltaAngle = orientation.firstAngle - lastAngles.firstAngle;
 
@@ -80,7 +91,7 @@ public class Gyro extends LinearOpMode {
     }
 
     public double getAbsoluteAngle() {
-        return robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES).firstAngle;
+        return robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES).firstAngle;
     }
 
     void turnToPid(double targetAngle) {
@@ -113,7 +124,7 @@ public class Gyro extends LinearOpMode {
 
 
     public void turnTo(double degrees) {
-        Orientation orientation = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YZX, AngleUnit.DEGREES);
+        Orientation orientation = robot.imu.getAngularOrientation(AxesReference.INTRINSIC, AxesOrder.YXZ, AngleUnit.DEGREES);
 
         double error = degrees - orientation.firstAngle;
 
