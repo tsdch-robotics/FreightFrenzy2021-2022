@@ -32,7 +32,7 @@ public class Lilly_1_RedAutonomous extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
-
+/*
         telemetry.addData("Status: ", "Resetting Encoders");
         telemetry.update();
 
@@ -287,9 +287,10 @@ public class Lilly_1_RedAutonomous extends LinearOpMode {
             robot.ArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             sleep(250);
+
         }
     }
 }
-
+*/ }}
 
 

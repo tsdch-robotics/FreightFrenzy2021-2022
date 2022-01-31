@@ -13,10 +13,12 @@ public class DrivePIDController {
     FtcDashboard dashboard;
     private double targetEncoder;
     public static double kPd, kId, kDd;
-    private double accumulatedError = 0;
+    public double accumulatedError = 0;
     private ElapsedTime timer = new ElapsedTime();
     private double lastError = 0;
     private double lastTime = 0;
+    public double error;
+    public double slope = 0;
     public DrivePIDController(double target, double p, double i, double d) {
         targetEncoder = target;
         kPd = p;
@@ -25,7 +27,7 @@ public class DrivePIDController {
     }
     public double update(double currentPosition) {
         // P
-        double error = targetEncoder - currentPosition;
+        error = targetEncoder - currentPosition;
 
         // I
         accumulatedError += error;
@@ -35,9 +37,9 @@ public class DrivePIDController {
         accumulatedError = Math.abs(accumulatedError) * Math.signum(error);
 
         // D
-        double slope = 0;
         if (lastTime > 0) {
             slope = (error - lastError)/ (timer.milliseconds() - lastTime);
+            //slope = (error - lastError)/ 0.2;
         }
         lastTime = timer.milliseconds();
         lastError = error;

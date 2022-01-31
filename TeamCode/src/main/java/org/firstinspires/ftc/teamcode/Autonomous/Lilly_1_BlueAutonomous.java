@@ -32,7 +32,7 @@ public class Lilly_1_BlueAutonomous extends LinearOpMode {
     @Override
     public void runOpMode() {
         robot.init(hardwareMap);
-
+/*
         telemetry.addData("Status: ", "Resetting Encoders");
         telemetry.update();
 
@@ -45,7 +45,7 @@ public class Lilly_1_BlueAutonomous extends LinearOpMode {
         robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.DriveBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.DriveBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.ArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("Path0", "Starting at %7d :%7d :%7d :%7d");
         robot.DriveFrontLeft.getCurrentPosition();
@@ -56,19 +56,19 @@ public class Lilly_1_BlueAutonomous extends LinearOpMode {
 
         waitForStart();
 
-        robot.Claw.setPosition(0);
+        //robot.Claw.setPosition(0);
         encoderDrive(.5, 29, 29, 3.0); // 15
         encoderTurn(.5, 1, Direction.left, 1.0);
         encoderArm(.5,800,3.0);
         encoderDrive(.3, 9.4, 9.4, 3.0);
-        robot.Claw.setPosition(1);
+        //robot.Claw.setPosition(1);
         sleep(500);
         encoderDrive(.5, -21,-21, 3.0);
         encoderTurn(.5,1.05,Direction.left,1.0);
         encoderDrive(.3,26,26,3.0);
-        robot.CarouselMotor1.setPower( .5);
+        //robot.CarouselMotor1.setPower( .5);
         sleep(2500);
-        robot.CarouselMotor1.setPower(0);
+        //robot.CarouselMotor1.setPower(0);
         encoderStrafe(.5,7,Direction.right, 3.0);
         encoderTurn(.5,1 , Direction.right,1.0);
         encoderDrive(.5,47,47,5.0);
@@ -289,4 +289,6 @@ public class Lilly_1_BlueAutonomous extends LinearOpMode {
             sleep(250);
         }
     }
+
 }
+ */}}
