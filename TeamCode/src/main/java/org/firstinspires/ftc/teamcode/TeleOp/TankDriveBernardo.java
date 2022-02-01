@@ -4,6 +4,7 @@ package org.firstinspires.ftc.teamcode.TeleOp;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DcMotorSimple;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import com.qualcomm.robotcore.hardware.Gamepad;
@@ -31,6 +32,9 @@ public class TankDriveBernardo extends OpMode {
     public void init() {
 
         robot.init(hardwareMap);
+        robot.ArmMotorHor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        robot.ArmMotorVert.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+
         int startingVertPos = robot.ArmMotorVert.getCurrentPosition();
         int startingHorPos = robot.ArmMotorVert.getCurrentPosition();
 
@@ -109,6 +113,7 @@ public class TankDriveBernardo extends OpMode {
             telemetry.addData("Power L: ", leftPower);
 
 */
+        /*
         //arm controls
         if (gamepad1.left_trigger > 0 && gamepad1.right_trigger == 0) {
             robot.ArmMotorVert.setPower(-.3);
@@ -125,9 +130,10 @@ public class TankDriveBernardo extends OpMode {
         }else {
             robot.ArmMotorHor.setPower(0);
         }
-        /*
+
         if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0 && robot.currVertPos == 0) {
             robot.ArmMotorVert.setTargetPosition(lowVertPos);
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorVert.setPower(0.3);
             while (robot.ArmMotorVert.isBusy()) {
             }
@@ -135,6 +141,7 @@ public class TankDriveBernardo extends OpMode {
             robot.currVertPos = 1;
         } else if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0 && robot.currVertPos == 1) {
             robot.ArmMotorVert.setTargetPosition(midVertPos);
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorVert.setPower(0.3);
             while (robot.ArmMotorVert.isBusy()) {
             }
@@ -142,6 +149,7 @@ public class TankDriveBernardo extends OpMode {
             robot.currVertPos = 2;
         } else if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0 && robot.currVertPos == 2) {
             robot.ArmMotorVert.setTargetPosition(highVertPos);
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorVert.setPower(0.3);
             while (robot.ArmMotorVert.isBusy()) {
             }
@@ -151,6 +159,7 @@ public class TankDriveBernardo extends OpMode {
 
         if (gamepad1.left_trigger > 0 && gamepad1.right_trigger == 0 && robot.currVertPos == 3) {
             robot.ArmMotorVert.setTargetPosition(midVertPos);
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorVert.setPower(-0.3);
             while (robot.ArmMotorVert.isBusy()) {
             }
@@ -158,6 +167,7 @@ public class TankDriveBernardo extends OpMode {
             robot.currVertPos = 2;
         } else if (gamepad1.left_trigger > 0 && gamepad1.right_trigger == 0 && robot.currVertPos == 2) {
             robot.ArmMotorVert.setTargetPosition(lowVertPos);
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorVert.setPower(-0.3);
             while (robot.ArmMotorVert.isBusy()) {
             }
@@ -165,6 +175,7 @@ public class TankDriveBernardo extends OpMode {
             robot.currVertPos = 1;
         } else if (gamepad1.left_trigger > 0 && gamepad1.right_trigger == 0 && robot.currVertPos == 1) {
             robot.ArmMotorVert.setTargetPosition(startingVertPos);
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorVert.setPower(-0.3);
             while (robot.ArmMotorVert.isBusy()) {
             }
@@ -175,6 +186,7 @@ public class TankDriveBernardo extends OpMode {
         // arm rotate
         if (!gamepad1.left_bumper && gamepad1.right_bumper && robot.currHorPos != 0) {
             robot.ArmMotorHor.setTargetPosition(startingHorPos);
+            robot.ArmMotorHor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorHor.setPower(.3);
             while (robot.ArmMotorHor.isBusy()) {
             }
@@ -182,6 +194,7 @@ public class TankDriveBernardo extends OpMode {
             robot.currHorPos = 0;
         } else if (gamepad1.left_bumper && !gamepad1.right_bumper && robot.currHorPos != -1) {
             robot.ArmMotorHor.setTargetPosition(leftBound);
+            robot.ArmMotorHor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorHor.setPower(-.3);
             while (robot.ArmMotorHor.isBusy()) {
             }
@@ -189,6 +202,7 @@ public class TankDriveBernardo extends OpMode {
             robot.currHorPos = -1;
         } else if (gamepad1.left_bumper && gamepad1.right_bumper && robot.currHorPos != 1) {
             robot.ArmMotorHor.setTargetPosition(rightBound);
+            robot.ArmMotorHor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
             robot.ArmMotorHor.setPower(.3);
             while (robot.ArmMotorHor.isBusy()) {
             }
