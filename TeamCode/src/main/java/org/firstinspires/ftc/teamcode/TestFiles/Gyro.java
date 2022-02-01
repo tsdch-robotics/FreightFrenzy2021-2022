@@ -124,26 +124,17 @@ public class Gyro extends LinearOpMode {
         robot.setAllPower(0);
     }
 
-    void moveToPid ( double targetEncoder) {
+    void moveToPid (double targetEncoder) {
         DrivePIDController pidDrive = new DrivePIDController(targetEncoder, kP, kI, kD);
-        double CurrentPosRF = robot.DriveFrontRight.getCurrentPosition();
-        double CurrentPosLF = robot.DriveFrontRight.getCurrentPosition();
-        double CurrentPosRB = robot.DriveFrontRight.getCurrentPosition();
-        double CurrentPosLB = robot.DriveFrontRight.getCurrentPosition();
+        double CurrentPos = robot.DriveFrontLeft.getCurrentPosition();
         while (opModeIsActive() && Math.abs(targetEncoder - getCurrentPosition()) > 1) {
-            double motorPowerRF = -0.5 * pidDrive.update(CurrentPosRF);
-            double motorPowerLF = -0.5 * pidDrive.update(CurrentPosLF);
-            double motorPowerRB = -0.5 * pidDrive.update(CurrentPosRB);
-            double motorPowerLB = -0.5 * pidDrive.update(CurrentPosLB);
+            double motorPower = 0.5 * pidDrive.update(CurrentPos);
             packet.put("kP: ", pidDrive.error);
             packet.put("kI: ", pidDrive.accumulatedError);
             packet.put("kD: ", pidDrive.slope);
-            robot.setMotorPower(1 * motorPowerLF,1 * motorPowerRF,1 * motorPowerLB,1 * motorPowerRB);
+            robot.setMotorPower(1 * motorPower,1 * motorPower,1 * motorPower,1 * motorPower);
             packet.put("error: ", pidDrive.error);
-            packet.put("PosLF: ", robot.DriveFrontLeft.getCurrentPosition());
-            packet.put("PosRF: ", robot.DriveFrontRight.getCurrentPosition());
-            packet.put("PosLB: ", robot.DriveBackLeft.getCurrentPosition());
-            packet.put("PosRB: ", robot.DriveBackRight.getCurrentPosition());
+            packet.put("Pos: ", robot.DriveFrontLeft.getCurrentPosition());
             dashboard.sendTelemetryPacket(packet);
         }
         robot.setAllPower(0);
