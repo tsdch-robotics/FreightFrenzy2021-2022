@@ -20,7 +20,6 @@ import org.firstinspires.ftc.teamcode.Hardware.ChampBot;
 public class TankDriveBernardo extends OpMode {
     ChampBot robot = new ChampBot();
     public ElapsedTime runtime = new ElapsedTime();
-    boolean slowcheck = false;
     int lowVertPos = 0;
     int midVertPos = 0;
     int highVertPos = 0;
@@ -30,13 +29,10 @@ public class TankDriveBernardo extends OpMode {
 
     @Override
     public void init() {
-
         robot.init(hardwareMap);
-        robot.ArmMotorHor.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
-        robot.ArmMotorVert.setMode(DcMotorEx.RunMode.STOP_AND_RESET_ENCODER);
+        final int startingVertPos = robot.ArmMotorVert.getCurrentPosition();
+        final int startingHorPos = robot.ArmMotorVert.getCurrentPosition();
 
-        int startingVertPos = robot.ArmMotorVert.getCurrentPosition();
-        int startingHorPos = robot.ArmMotorVert.getCurrentPosition();
 
         lowVertPos = startingVertPos + 0;//difference in mov
         midVertPos = startingVertPos + 2 * 0;
@@ -50,6 +46,17 @@ public class TankDriveBernardo extends OpMode {
         robot.DriveFrontRight.setPower(0);
         robot.DriveBackLeft.setPower(0);
         robot.DriveBackRight.setPower(0);
+
+        telemetry.addData("StartingVert: ", startingVertPos);
+        telemetry.addData("StartingHor: ", startingHorPos);
+
+        robot.DriveFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.DriveBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.DriveBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.ArmMotorHor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+
     }
 
 
@@ -58,33 +65,11 @@ public class TankDriveBernardo extends OpMode {
         // tank drive: each stick controls one side of the robot
         // dpad for strafing left/right
 
-        final int startingVertPos = robot.ArmMotorVert.getCurrentPosition();
-        final int startingHorPos = robot.ArmMotorVert.getCurrentPosition();
-
-        final int lowVertPos = startingVertPos + 0;//difference in mov
-        final int midVertPos = startingVertPos + 2 * 0;
-        final int highVertPos = startingVertPos + 3 * 0;
-
-        final int leftBound = startingHorPos - 0;
-        final int midBound = startingHorPos;
-        final int rightBound = startingHorPos + 0;
-
-
-        robot.DriveFrontLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.DriveBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.DriveBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        robot.ArmMotorHor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-        robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         double DLY = gamepad1.left_stick_y * .75;
         double DRY = gamepad1.right_stick_y * .75;
         float DLX = Math.abs(gamepad1.left_stick_x);
         float DRX = Math.abs(gamepad1.right_stick_x);
-
-        //float rightPower = DLY / DLX;
-        //float leftPower = DRY / DRX;
-        double inf = Double.POSITIVE_INFINITY;
 
         telemetry.addData("Right: ", DRY);
         telemetry.addData("Left: ", DLY);
@@ -113,7 +98,7 @@ public class TankDriveBernardo extends OpMode {
             telemetry.addData("Power L: ", leftPower);
 
 */
-        /*
+
         //arm controls
         if (gamepad1.left_trigger > 0 && gamepad1.right_trigger == 0) {
             robot.ArmMotorVert.setPower(-.3);
@@ -130,7 +115,7 @@ public class TankDriveBernardo extends OpMode {
         }else {
             robot.ArmMotorHor.setPower(0);
         }
-
+        /*
         if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0 && robot.currVertPos == 0) {
             robot.ArmMotorVert.setTargetPosition(lowVertPos);
             robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_TO_POSITION);
@@ -246,11 +231,13 @@ public class TankDriveBernardo extends OpMode {
                 if (!gamepad1.dpad_up && !gamepad1.dpad_down && !gamepad1.dpad_left && !gamepad1.dpad_right) {
                 robot.setMotorPower(-DLY, -DRY, -DLY, -DRY);
                 }
-                telemetry.addData("Arm position : ", robot.ArmMotorHor.getCurrentPosition());
-                telemetry.addData("Servo Position: ", robot.ArmMotorVert.getCurrentPosition());
-                telemetry.addData("StartingVert: ", startingVertPos);
-                telemetry.addData("StartingHor: ", startingHorPos);
+                telemetry.addData("ArmHor position : ", robot.ArmMotorHor.getCurrentPosition());
+                telemetry.addData("ArmVert Position: ", robot.ArmMotorVert.getCurrentPosition());
 
+                telemetry.addData("FL position : ", robot.DriveFrontLeft.getCurrentPosition());
+                telemetry.addData("FR Position: ", robot.DriveFrontRight.getCurrentPosition());
+                telemetry.addData("BL position : ", robot.DriveBackLeft.getCurrentPosition());
+                telemetry.addData("BR Position: ", robot.DriveBackRight.getCurrentPosition());
 
                 }
                 }
