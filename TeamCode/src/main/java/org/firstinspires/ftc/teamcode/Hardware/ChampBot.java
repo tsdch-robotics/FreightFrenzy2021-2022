@@ -92,7 +92,7 @@ public class ChampBot<Directionvector> {
         ArmMotorHor = hardwareMap.dcMotor.get("ArmMotorHor");
         ArmMotorHor.setDirection(DcMotor.Direction.REVERSE);
         ArmMotorHor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        ArmMotorHor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        ArmMotorHor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Carousel = hardwareMap.servo.get("Claw");
 
@@ -106,8 +106,8 @@ public class ChampBot<Directionvector> {
     public void resetDriveEncoders() {
         DriveFrontLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         DriveFrontRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
-        DriveBackLeft.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-        DriveBackRight.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
+        DriveBackLeft.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+        DriveBackRight.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
     }
 
     public void enableEncoders() {
