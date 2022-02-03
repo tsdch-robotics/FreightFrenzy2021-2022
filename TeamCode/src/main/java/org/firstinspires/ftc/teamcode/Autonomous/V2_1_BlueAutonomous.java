@@ -9,14 +9,16 @@ import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
 
 import java.lang.*;
 
-@Autonomous(name="Bernardo_1_RedAutonomous", group="ChampBot")
+@Autonomous(name="V2_1_BlueAutonomous", group="ChampBot")
 
-public class Bernardo_1_RedAutonomous extends LinearOpMode {
+public class V2_1_BlueAutonomous extends LinearOpMode {
     ChampBot_v2 robot = new ChampBot_v2();
     private ElapsedTime runtime = new ElapsedTime();
     static final double tickCount = 537.7;
     static final double wheelDiameter = 3.78; //in inches
     static final double countsPerInch = tickCount/(wheelDiameter*3.1415);
+    static final double driveSpeed = 1.0;
+    static final double strafeSpeed = 0.5;
     public DcMotor DriveFrontLeft; //:D
     public DcMotor DriveFrontRight;
     public DcMotor DriveBackLeft;
@@ -52,37 +54,37 @@ public class Bernardo_1_RedAutonomous extends LinearOpMode {
 
         waitForStart();
 
-
         robot.ArmServo.setPosition(0.34);
-        encoderStrafe(.5,7,Direction.left, 3.0); //straft left
+        encoderStrafe(.5,7,Direction.right, 3.0); //straft right
         encoderDrive(.2, 10, 10, 3.0); //drive slowly forward
         encoderDrive(-.2, 10, 10, 3.0); //drive slowly backwards
-        encoderStrafe(.5,10,Direction.right, 3.0); //straft right
+        encoderStrafe(.5,10,Direction.left, 3.0); //straft left
         encoderDrive(.5, 29, 29, 3.0); //drive into warehouse
         encoderDriveAndIntake(.2,10,10,4.0); //drive forward slowly while spinning intake wheel
         encoderDrive(-.5, 32, 32, 3.0); //drive out of warehouse
         //repeat
 
-
-        //encoderDrive(.5, 29, 29, 3.0);
-        //encoderTurn(.5, 1, Direction.right, 1.0);
-        //encoderArm(.5,800,3.0);
-        //encoderDrive(.3, 9, 9, 3.0);
-        //robot.Claw.setPosition(1);
-        //sleep(500);
-        //encoderDrive(.5, -21,-21, 3.0);
-        //encoderTurn(.5,1.05,Direction.right,1.0);
-        //encoderDrive(.3,26,26,3.0);
-        //robot.CarouselMotor2.setPower(-.5);
-        //sleep(2500);
-        //robot.CarouselMotor2.setPower(0);
-        //encoderStrafe(.5,7,Direction.left, 3.0);
-        //encoderTurn(.5,1, Direction.left,1.0);
-        //encoderDrive(.5,47,47,5.0);
-        //encoderStrafe(.5,20, Direction.right,2.0);
-        //encoderDrive(.5,30,30,3.0);
-        //encoderStrafe(.5,20, Direction.left,2.0);
-
+/*
+        robot.Claw.setPosition(0);
+        encoderDrive(.5, 29, 29, 3.0); // 15
+        encoderTurn(.5, 1, Direction.right, 1.0);
+        encoderArm(.5,800,3.0);
+        encoderDrive(.3, 9, 9, 3.0);
+        robot.Claw.setPosition(1);
+        sleep(500);
+        encoderDrive(.5, -21,-21, 3.0);
+        encoderTurn(.5,1.05,Direction.right,1.0);
+        encoderDrive(.3,26,26,3.0);
+        robot.CarouselMotor2.setPower(-.5);
+        sleep(2500);
+        robot.CarouselMotor2.setPower(0);
+        encoderStrafe(.5,7,Direction.left, 3.0);
+        encoderTurn(.5,1, Direction.left,1.0);
+        encoderDrive(.5,47,47,5.0);
+        encoderStrafe(.5,20, Direction.right,2.0);
+        encoderDrive(.5,30,30,3.0);
+        encoderStrafe(.5,20, Direction.left,2.0);
+*/
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }

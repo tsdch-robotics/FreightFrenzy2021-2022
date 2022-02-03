@@ -63,12 +63,12 @@ public class ChampBot<Directionvector> {
         imu.initialize(parameters);
 
         DriveFrontLeft = hardwareMap.dcMotor.get("DriveFrontLeft");
-        DriveFrontLeft.setDirection(DcMotor.Direction.REVERSE);
+        DriveFrontLeft.setDirection(DcMotor.Direction.FORWARD);
         DriveFrontLeft.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveFrontLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         DriveFrontRight = hardwareMap.dcMotor.get("DriveFrontRight");
-        DriveFrontRight.setDirection(DcMotor.Direction.FORWARD);
+        DriveFrontRight.setDirection(DcMotor.Direction.REVERSE);
         DriveFrontRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 

@@ -9,9 +9,9 @@ import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
 
 import java.lang.*;
 
-@Autonomous(name="Bernardo_1_BlueAutonomous", group="ChampBot")
+@Autonomous(name="V2_2_BlueAutonomous", group="ChampBot")
 
-public class Bernardo_1_BlueAutonomous extends LinearOpMode {
+public class V2_2_BlueAutonomous extends LinearOpMode {
     ChampBot_v2 robot = new ChampBot_v2();
     private ElapsedTime runtime = new ElapsedTime();
     static final double tickCount = 537.7;
@@ -54,37 +54,117 @@ public class Bernardo_1_BlueAutonomous extends LinearOpMode {
 
         waitForStart();
 
-        robot.ArmServo.setPosition(0.34);
-        encoderStrafe(.5,7,Direction.right, 3.0); //straft right
-        encoderDrive(.2, 10, 10, 3.0); //drive slowly forward
-        encoderDrive(-.2, 10, 10, 3.0); //drive slowly backwards
-        encoderStrafe(.5,10,Direction.left, 3.0); //straft left
-        encoderDrive(.5, 29, 29, 3.0); //drive into warehouse
+        // first cycle
+        robot.ArmMotor.setTargetPosition(300);
+        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.ArmMotor.setPower(.5);
+        sleep(250);
+        encoderDrive(.5,-18,-18,3.0);
+        robot.ArmServo.setPosition(1);
+        sleep(750);
+        encoderStrafe(.5,22, Direction.right,3.0); //straft left
+        sleep(750);
+        robot.IntakeWheel.setPower(.4);
+        sleep(1000);//drop block
+        robot.IntakeWheel.setPower(0);
+        robot.ArmServo.setPosition(0.34); //position arm to straight
+        encoderStrafe(.5,14, Direction.left,3.0); //strafe right
+        encoderStrafe(.2,10, Direction.left,3.0); //align against wall
+        sleep(750);
+        encoderDrive(.5,35,35,3.0); //dirve forward a bit
+        //need to set arm to correct hight to intake block
+        robot.ArmMotor.setTargetPosition(0);
+        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.ArmMotor.setPower(.5);
+        while (robot.ArmMotor.isBusy()) {
+
+        }
+        robot.IntakeWheel.setPower(-.4);
+        encoderDriveAndIntake(.2,20,20,3.0); //drive forward slowly while spinning intake wheel
+        sleep(1000);
+        robot.IntakeWheel.setPower(0);
+        //need to set arm back to original height
+        robot.ArmMotor.setTargetPosition(300);
+        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.ArmMotor.setPower(1);
+        while (robot.ArmMotor.isBusy()) {
+
+        }
+        encoderDrive(-.5,-35,-35,4.0); //drive backwards to original position
+
+        //second cycle
+        encoderDrive(.5,-14,-14,3.0);
+        robot.ArmServo.setPosition(1);
+        sleep(750);
+        encoderStrafe(.5,20, Direction.right,3.0); //straft left
+        sleep(750);
+        robot.IntakeWheel.setPower(.4);
+        sleep(2000);//drop block
+        robot.IntakeWheel.setPower(0);
+        robot.ArmServo.setPosition(0.34); //position arm to straight
+        encoderStrafe(.5,15, Direction.left,3.0); //strafe right
+        encoderStrafe(.2,10, Direction.left,3.0); //align against wall
+        sleep(750);
+        encoderDrive(.5,23,23,3.0); //dirve forward a bit
+        //need to set arm to correct hight to intake block
+        robot.ArmMotor.setTargetPosition(100);
+        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.ArmMotor.setPower(1);
+        while (robot.ArmMotor.isBusy()) {
+
+        }
+        robot.IntakeWheel.setPower(-.4);
+        encoderDriveAndIntake(.2,17,17,3.0); //drive forward slowly while spinning intake wheel
+        robot.IntakeWheel.setPower(0);
+        //need to set arm back to original height
+        robot.ArmMotor.setTargetPosition(365);
+        robot.ArmMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+        robot.ArmMotor.setPower(1);
+        while (robot.ArmMotor.isBusy()) {
+
+        }
+
+
+        //old code for ducks + 1 frieght
+        /*
+        robot.ArmServo.setPosition(0.68);
+        encoderStrafe(.5,25,Direction.right,3.0); //strafe right
+        sleep(750);
+        robot.IntakeWheel.setPower(.4); //drop block
+        sleep(750);
+        encoderStrafe(.5,30,Direction.left,3.0); //strafe left
+        robot.ArmServo.setPosition(0.34); //position arm to straight
+        sleep(750);
+        encoderDrive(.5,20,20,3.0); //dirve forward a bit
+        //need to set arm to correct hight to intake block
         encoderDriveAndIntake(.2,10,10,4.0); //drive forward slowly while spinning intake wheel
-        encoderDrive(-.5, 32, 32, 3.0); //drive out of warehouse
+        //need to set arm back to original height
+        encoderDrive(-.5,30,30,4.0); //dirve backwards to original position
+
         //repeat
 
-/*
-        robot.Claw.setPosition(0);
-        encoderDrive(.5, 29, 29, 3.0); // 15
-        encoderTurn(.5, 1, Direction.right, 1.0);
-        encoderArm(.5,800,3.0);
-        encoderDrive(.3, 9, 9, 3.0);
-        robot.Claw.setPosition(1);
-        sleep(500);
-        encoderDrive(.5, -21,-21, 3.0);
-        encoderTurn(.5,1.05,Direction.right,1.0);
-        encoderDrive(.3,26,26,3.0);
-        robot.CarouselMotor2.setPower(-.5);
-        sleep(2500);
-        robot.CarouselMotor2.setPower(0);
-        encoderStrafe(.5,7,Direction.left, 3.0);
+        /* old code without cycle
+        robot.ArmServo.setPosition(0.34);
+        sleep(250);
+        encoderDrive(.5, 53, 53, 3.0);
         encoderTurn(.5,1, Direction.left,1.0);
-        encoderDrive(.5,47,47,5.0);
-        encoderStrafe(.5,20, Direction.right,2.0);
-        encoderDrive(.5,30,30,3.0);
-        encoderStrafe(.5,20, Direction.left,2.0);
-*/
+        encoderDrive(.5, -12.5, -12.5, 2.0);
+        robot.ArmServo.setPosition(0);
+        sleep(500);
+        robot.IntakeWheel.setPower(.4);
+        sleep(750);
+        robot.IntakeWheel.setPower(0);
+        robot.ArmServo.setPosition(.34);
+        encoderDrive(.5,-36.5,-36.5 ,3.0);
+        encoderTurn(.5,1, Direction.right, 1.0);
+        encoderDrive(.3,-42,-42, 3.0);
+        //spin carousel wheel
+        encoderTurn(.5,1.05, Direction.left,1.0);
+        encoderDrive(.5, 55,55,4.0);
+        encoderStrafe(.5,25, Direction.left,3.0);
+        encoderDrive(.5, 22, 22, 3.0);
+        encoderStrafe(.5,17, Direction.right, 2.0);
+ */
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
@@ -269,7 +349,7 @@ public class Bernardo_1_BlueAutonomous extends LinearOpMode {
         int newFrontRightTarget;
         int newBackLeftTarget;
         int newBackRightTarget;
-        double inchCount = 6.53 * Math.PI;
+        double inchCount = 4.22 * Math.PI;
 
         if (opModeIsActive()) {
             newFrontLeftTarget = robot.DriveFrontLeft.getCurrentPosition() + (int) (inchCount * countsPerInch * numberOfTurns);
