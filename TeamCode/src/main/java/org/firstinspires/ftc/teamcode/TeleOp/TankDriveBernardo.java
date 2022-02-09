@@ -20,27 +20,14 @@ import org.firstinspires.ftc.teamcode.Hardware.ChampBot;
 public class TankDriveBernardo extends OpMode {
     ChampBot robot = new ChampBot();
     public ElapsedTime runtime = new ElapsedTime();
-    int lowVertPos = 0;
-    int midVertPos = 0;
-    int highVertPos = 0;
-    int leftBound = 0;
-    int midBound = 0;
-    int rightBound = 0;
+    public int startingVertPos = 0;
+    public int startingHorPos = 0;
 
     @Override
     public void init() {
         robot.init(hardwareMap);
-        final int startingVertPos = robot.ArmMotorVert.getCurrentPosition();
-        final int startingHorPos = robot.ArmMotorVert.getCurrentPosition();
-
-
-        lowVertPos = startingVertPos + 0;//difference in mov
-        midVertPos = startingVertPos + 2 * 0;
-        highVertPos = startingVertPos + 3 * 0;
-
-        leftBound = startingHorPos - 0;
-        midBound = startingHorPos;
-        rightBound = startingHorPos + 0;
+        startingVertPos = robot.ArmMotorVert.getCurrentPosition();
+        startingHorPos = robot.ArmMotorVert.getCurrentPosition();
 
         robot.DriveFrontLeft.setPower(0);
         robot.DriveFrontRight.setPower(0);
@@ -100,10 +87,18 @@ public class TankDriveBernardo extends OpMode {
 */
 
         //arm controls
-        if (gamepad1.left_trigger > 0 && gamepad1.right_trigger == 0) {
+        if (gamepad1.a && !gamepad1.y ) {
+            robot.moveArmVertDown(startingVertPos);
+        }else if (gamepad1.y && !gamepad1.a) {
+            robot.moveArmVertUp(startingVertPos + 2318);
+        }else {
+            robot.ArmMotorVert.setPower(0);
+        }
+
+        if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0) {
+            robot.ArmMotorVert.setPower(.8);
+        }else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger > 0) {
             robot.ArmMotorVert.setPower(-.3);
-        }else if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0) {
-            robot.ArmMotorVert.setPower(.3);
         }else {
             robot.ArmMotorVert.setPower(0);
         }
@@ -115,6 +110,7 @@ public class TankDriveBernardo extends OpMode {
         }else {
             robot.ArmMotorHor.setPower(0);
         }
+
         /*
         if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0 && robot.currVertPos == 0) {
             robot.ArmMotorVert.setTargetPosition(lowVertPos);
@@ -209,35 +205,39 @@ public class TankDriveBernardo extends OpMode {
          */
 
         if (gamepad1.left_stick_y >= .9) {
-                DLY = .75;
-                } else if (gamepad1.left_stick_y <= -.9) {
-                DLY = -.75;
-                }
-                if (gamepad1.right_stick_y >= .9) {
-                DRY = .75;
-                } else if (gamepad1.right_stick_y <= -.9) {
-                DRY = -.75;
-                }
+            DLY = .75;
+        } else if (gamepad1.left_stick_y <= -.9) {
+            DLY = -.75;
+        }
+        if (gamepad1.right_stick_y >= .9) {
+            DRY = .75;
+        } else if (gamepad1.right_stick_y <= -.9) {
+            DRY = -.75;
+        }
 
-                if (gamepad1.dpad_right) {
-                robot.setMotorPower(.75, -.75, -.75, .75);
-                } else if (gamepad1.dpad_left) {
-                robot.setMotorPower(-.75, .75, .75, -.75);
-                } else if (gamepad1.dpad_up) {
-                robot.setMotorPower(.75, .75, .75, .75);
-                } else if (gamepad1.dpad_down) {
-                robot.setMotorPower(-.75, -.75, -.75, -.75);
-                }
-                if (!gamepad1.dpad_up && !gamepad1.dpad_down && !gamepad1.dpad_left && !gamepad1.dpad_right) {
-                robot.setMotorPower(-DLY, -DRY, -DLY, -DRY);
-                }
-                telemetry.addData("ArmHor position : ", robot.ArmMotorHor.getCurrentPosition());
-                telemetry.addData("ArmVert Position: ", robot.ArmMotorVert.getCurrentPosition());
+        if (gamepad1.dpad_right) {
+            robot.setMotorPower(.75, -.75, -.75, .75);
+        } else if (gamepad1.dpad_left) {
+            robot.setMotorPower(-.75, .75, .75, -.75);
+        }
+        if (gamepad1.dpad_up) {
+            robot.IntakeMotor.setPower(.3);
+        } else if (gamepad1.dpad_down) {
+            robot.IntakeMotor.setPower(-.3);
+        } else {
+            robot.IntakeMotor.setPower(0);
+        }
 
-                telemetry.addData("FL position : ", robot.DriveFrontLeft.getCurrentPosition());
-                telemetry.addData("FR Position: ", robot.DriveFrontRight.getCurrentPosition());
-                telemetry.addData("BL position : ", robot.DriveBackLeft.getCurrentPosition());
-                telemetry.addData("BR Position: ", robot.DriveBackRight.getCurrentPosition());
+        if (!gamepad1.dpad_up && !gamepad1.dpad_down && !gamepad1.dpad_left && !gamepad1.dpad_right) {
+            robot.setMotorPower(-DLY, -DRY, -DLY, -DRY);
+        }
+        telemetry.addData("ArmHor position : ", robot.ArmMotorHor.getCurrentPosition());
+        telemetry.addData("ArmVert Position: ", robot.ArmMotorVert.getCurrentPosition());
+        telemetry.addData("FL position : ", robot.DriveFrontLeft.getCurrentPosition());
+        telemetry.addData("FR Position: ", robot.DriveFrontRight.getCurrentPosition());
+        telemetry.addData("BL position : ", robot.DriveBackLeft.getCurrentPosition());
+        telemetry.addData("BR Position: ", robot.DriveBackRight.getCurrentPosition());
+        telemetry.addData("TeouchSensor: ", robot.touchSensor.getValue());
+    }
 
-                }
-                }
+}

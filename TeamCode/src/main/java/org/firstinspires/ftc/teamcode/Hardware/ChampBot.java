@@ -6,7 +6,9 @@ import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
 import com.qualcomm.hardware.motors.RevRobotics40HdHexMotor;
 import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
+import com.qualcomm.robotcore.hardware.TouchSensor;
 import com.qualcomm.robotcore.hardware.Servo;
 import com.qualcomm.robotcore.util.ElapsedTime;
 import java.util.*;
@@ -16,6 +18,9 @@ import com.qualcomm.robotcore.hardware.ColorSensor;
 import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
 import org.firstinspires.ftc.robotcore.external.ClassFactory;
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
+import org.firstinspires.ftc.teamcode.TestFiles.PIDController;
+import org.firstinspires.ftc.teamcode.TestFiles.PIDControllerHor;
+
 import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
 
 
@@ -24,20 +29,28 @@ import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
  * and some common helper functions (stop motors, reset encoders, etc.)
  */
 public class ChampBot<Directionvector> {
-    public int currVertPos = 0;
-    public int currHorPos = 0;
+    public static double kvP = 0.3;
+    public static double kvI = 0.001;
+    public static double kvD = 0.01;
+    public static double khP = 0.001;
+    public static double khI = 0;
+    public static double khD = 0.00001;
     //Drive Motors
     public DcMotor DriveFrontLeft; //:D
     public DcMotor DriveFrontRight;
     public DcMotor DriveBackLeft;
     public DcMotor DriveBackRight;
     public BNO055IMU imu;
-    //public DcMotor IntakeMotor;
-    public DcMotor ArmMotorVert;
+    public DcMotor IntakeMotor;
+    public DcMotorEx ArmMotorVert;
     public DcMotor ArmMotorHor;
+    //File Imports
+    PIDController control = new PIDController(kvP, kvI, kvD);
+    PIDControllerHor controlHor = new PIDControllerHor(khP, khI, khD);
     //Odometry Encoders
     //public Servo Carousel;
     //Sensors
+    public TouchSensor touchSensor;
     //public ColorSensor color_sensor;
     //code time! :)
     private HardwareMap hardwareMap;
@@ -46,7 +59,10 @@ public class ChampBot<Directionvector> {
 
     public void init(HardwareMap ahwMap) {
         hardwareMap = ahwMap;
-        ArmMotorVert = hardwareMap.dcMotor.get("ArmMotorVert");
+
+        touchSensor = hardwareMap.touchSensor.get("touchSensor");
+
+        ArmMotorVert = hardwareMap.get(DcMotorEx.class, "ArmMotorVert");
         ArmMotorVert.setDirection(DcMotor.Direction.REVERSE);
         ArmMotorVert.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ArmMotorVert.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
@@ -81,13 +97,11 @@ public class ChampBot<Directionvector> {
         DriveBackRight.setDirection(DcMotor.Direction.REVERSE);
         DriveBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-/*
-        IntakeMotor = hardwareMap.dcMotor.get("CarouselMotor1");
+
+        IntakeMotor = hardwareMap.dcMotor.get("IntakeMotor");
         IntakeMotor.setDirection(DcMotor.Direction.REVERSE);
         IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         IntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
- */
 
         ArmMotorHor = hardwareMap.dcMotor.get("ArmMotorHor");
         ArmMotorHor.setDirection(DcMotor.Direction.REVERSE);
@@ -133,5 +147,48 @@ public class ChampBot<Directionvector> {
     }
     public void setAllPower(double p) {
         setMotorPower(p,p,p,p);
+    }
+
+
+    public void moveArmVertUp(double Target) {
+        double target = Target;
+        double error = target- ArmMotorVert.getCurrentPosition();
+        while (Math.abs(error) > 20) {
+            double command = control.update(target, ArmMotorVert.getCurrentPosition());
+            ArmMotorVert.setPower(command);
+            error = target - ArmMotorVert.getCurrentPosition();
+        }
+        ArmMotorVert.setPower(0);
+    }
+
+    public void moveArmVertDown(double Target) {
+        double target = Target;
+        while (!touchSensor.isPressed()) {
+            double command = control.update(target, ArmMotorVert.getCurrentPosition());
+            ArmMotorVert.setPower(command);
+        }
+        ArmMotorVert.setPower(0);
+    }
+
+    public void moveArmHorLeft(double Target) {
+        double target = Target;
+        double error = target- ArmMotorVert.getCurrentPosition();
+        while (Math.abs(error) > 20) {
+            double command = controlHor.update(target, ArmMotorVert.getCurrentPosition());
+            ArmMotorVert.setPower(command);
+            error = target - ArmMotorVert.getCurrentPosition();
+        }
+        ArmMotorVert.setPower(0);
+    }
+
+    public void moveArmHorRight(double Target) {
+        double target = Target;
+        double error = target- ArmMotorVert.getCurrentPosition();
+        while (Math.abs(error) > 20) {
+            double command = controlHor.update(target, ArmMotorVert.getCurrentPosition());
+            ArmMotorVert.setPower(command);
+            error = target - ArmMotorVert.getCurrentPosition();
+        }
+        ArmMotorVert.setPower(0);
     }
 }
