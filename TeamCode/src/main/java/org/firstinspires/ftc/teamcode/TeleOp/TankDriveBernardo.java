@@ -98,18 +98,18 @@ public class TankDriveBernardo extends OpMode {
 
          */
 
-        if (gamepad2.right_trigger > 0 && gamepad2.left_trigger == 0) {
+        if (gamepad2.left_trigger > 0 && gamepad2.right_trigger == 0) {
             robot.ArmMotorVert.setPower(1);
-        }else if (gamepad2.right_trigger == 0 && gamepad2.left_trigger > 0) {
+        }else if (gamepad2.left_trigger == 0 && gamepad2.right_trigger > 0) {
             robot.ArmMotorVert.setPower(-.8);
         }else {
             robot.ArmMotorVert.setPower(0);
         }
 
         if (gamepad2.dpad_left && !gamepad2.dpad_right) {
-            robot.ArmMotorHor.setPower(.6);
+            robot.ArmMotorHor.setPower(.5);
         }else if (gamepad2.dpad_right && !gamepad2.dpad_left) {
-            robot.ArmMotorHor.setPower(-.6);
+            robot.ArmMotorHor.setPower(-.5);
         }else {
             robot.ArmMotorHor.setPower(0);
         }
