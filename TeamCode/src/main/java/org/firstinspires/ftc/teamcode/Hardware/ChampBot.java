@@ -145,14 +145,15 @@ public class ChampBot<Directionvector> {
         DriveBackLeft.setPower(BackL);
         DriveBackRight.setPower(BackR);
     }
+
     public void setAllPower(double p) {
-        setMotorPower(p,p,p,p);
+        setMotorPower(p, p, p, p);
     }
 
 
     public void moveArmVertUp(double Target) {
         double target = Target;
-        double error = target- ArmMotorVert.getCurrentPosition();
+        double error = target - ArmMotorVert.getCurrentPosition();
         while (Math.abs(error) > 20) {
             double command = control.update(target, ArmMotorVert.getCurrentPosition());
             ArmMotorVert.setPower(command);
@@ -163,32 +164,23 @@ public class ChampBot<Directionvector> {
 
     public void moveArmVertDown(double Target) {
         double target = Target;
-        while (!touchSensor.isPressed()) {
+        double error = target - ArmMotorVert.getCurrentPosition();
+        while (Math.abs(error) > 20) {
             double command = control.update(target, ArmMotorVert.getCurrentPosition());
             ArmMotorVert.setPower(command);
-        }
-        ArmMotorVert.setPower(0);
-    }
-
-    public void moveArmHorLeft(double Target) {
-        double target = Target;
-        double error = target- ArmMotorVert.getCurrentPosition();
-        while (Math.abs(error) > 20) {
-            double command = controlHor.update(target, ArmMotorVert.getCurrentPosition());
-            ArmMotorVert.setPower(command);
             error = target - ArmMotorVert.getCurrentPosition();
         }
         ArmMotorVert.setPower(0);
     }
 
-    public void moveArmHorRight(double Target) {
+    public void moveArmHor(double Target) {
         double target = Target;
-        double error = target- ArmMotorVert.getCurrentPosition();
+        double error = target - ArmMotorHor.getCurrentPosition();
         while (Math.abs(error) > 20) {
-            double command = controlHor.update(target, ArmMotorVert.getCurrentPosition());
-            ArmMotorVert.setPower(command);
-            error = target - ArmMotorVert.getCurrentPosition();
+            double command = controlHor.update(target, ArmMotorHor.getCurrentPosition());
+            ArmMotorHor.setPower(command);
+            error = target - ArmMotorHor.getCurrentPosition();
         }
-        ArmMotorVert.setPower(0);
+        ArmMotorHor.setPower(0);
     }
 }

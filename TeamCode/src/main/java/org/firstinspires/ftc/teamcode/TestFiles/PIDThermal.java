@@ -52,15 +52,15 @@ public class PIDThermal extends LinearOpMode {
 
         while (opModeIsActive()) {
             target = 300;
-            error = target- robot.ArmMotorHor.getCurrentPosition();
+            error = target- robot.ArmMotorVert.getCurrentPosition();
             while (Math.abs(error) > 10) {
-                double command = control.update(target, robot.ArmMotorHor.getCurrentPosition());
-                robot.ArmMotorHor.setPower(command);
-                error = target - robot.ArmMotorHor.getCurrentPosition();
+                double command = control.update(target, robot.ArmMotorVert.getCurrentPosition());
+                robot.ArmMotorVert.setPower(command);
+                error = target - robot.ArmMotorVert.getCurrentPosition();
             }
-            robot.ArmMotorHor.setPower(0);
+            robot.ArmMotorVert.setPower(0);
             packet.put("Error ", target);
-            packet.put("Current Pos:", robot.ArmMotorHor.getCurrentPosition());
+            packet.put("Current Pos:", robot.ArmMotorVert.getCurrentPosition());
             packet.put("P:", kP);
             packet.put("I", kI);
             packet.put("D", kD);

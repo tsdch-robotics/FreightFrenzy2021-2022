@@ -87,30 +87,37 @@ public class TankDriveBernardo extends OpMode {
 */
 
         //arm controls
-        if (gamepad1.a && !gamepad1.y ) {
+        if (gamepad2.a && !gamepad2.y ) {
             robot.moveArmVertDown(startingVertPos);
-        }else if (gamepad1.y && !gamepad1.a) {
+        }else if (gamepad2.y && !gamepad2.a) {
             robot.moveArmVertUp(startingVertPos + 2318);
         }else {
             robot.ArmMotorVert.setPower(0);
         }
 
-        if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0) {
+        if (gamepad2.right_trigger > 0 && gamepad2.left_trigger == 0) {
             robot.ArmMotorVert.setPower(.8);
-        }else if (gamepad1.right_trigger == 0 && gamepad1.left_trigger > 0) {
-            robot.ArmMotorVert.setPower(-.3);
+        }else if (gamepad2.right_trigger == 0 && gamepad2.left_trigger > 0) {
+            robot.ArmMotorVert.setPower(-.6);
         }else {
             robot.ArmMotorVert.setPower(0);
         }
 
-        if (gamepad1.left_bumper && !gamepad1.right_bumper) {
-            robot.ArmMotorHor.setPower(.3);
-        }else if (gamepad1.right_bumper && !gamepad1.left_bumper) {
-            robot.ArmMotorHor.setPower(-.3);
+        if (gamepad2.left_bumper && !gamepad2.right_bumper) {
+            robot.ArmMotorHor.setPower(.4);
+        }else if (gamepad2.right_bumper && !gamepad2.left_bumper) {
+            robot.ArmMotorHor.setPower(-.4);
         }else {
             robot.ArmMotorHor.setPower(0);
         }
 
+        if (gamepad2.x && !gamepad2.b) {
+            robot.moveArmHor(startingHorPos - 823);
+        }else if (gamepad2.b && !gamepad2.x) {
+            robot.moveArmHor(startingHorPos + 823);
+        }else if (gamepad2.x && gamepad2.b) {
+            robot.moveArmHor(startingHorPos);
+        }
         /*
         if (gamepad1.right_trigger > 0 && gamepad1.left_trigger == 0 && robot.currVertPos == 0) {
             robot.ArmMotorVert.setTargetPosition(lowVertPos);
@@ -215,14 +222,14 @@ public class TankDriveBernardo extends OpMode {
             DRY = -.75;
         }
 
-        if (gamepad1.dpad_right) {
+        if (gamepad1.right_bumper) {
             robot.setMotorPower(.75, -.75, -.75, .75);
-        } else if (gamepad1.dpad_left) {
+        } else if (gamepad1.left_bumper) {
             robot.setMotorPower(-.75, .75, .75, -.75);
         }
-        if (gamepad1.dpad_up) {
+        if (gamepad2.dpad_up) {
             robot.IntakeMotor.setPower(.3);
-        } else if (gamepad1.dpad_down) {
+        } else if (gamepad2.dpad_down) {
             robot.IntakeMotor.setPower(-.3);
         } else {
             robot.IntakeMotor.setPower(0);
