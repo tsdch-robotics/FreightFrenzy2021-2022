@@ -106,16 +106,16 @@ public class TankDriveBernardo extends OpMode {
         }else {
             robot.ArmMotorHor.setPower(0);
         }
-/*
-        if (gamepad2.x && !gamepad2.b) {
-            robot.moveArmHor(startingHorPos - 823);
+
+        if (gamepad2.a && !gamepad2.b) {
+            robot.CarouselMotor.setPower(-.5);
         }else if (gamepad2.b && !gamepad2.x) {
-            robot.moveArmHor(startingHorPos + 823);
-        }else if (gamepad2.x && gamepad2.b) {
-            robot.moveArmHor(startingHorPos);
+            robot.CarouselMotor.setPower(.5);
+        }else{
+            robot.CarouselMotor.setPower(0);
         }
 
- */
+
 
         if (gamepad1.left_stick_y >= .9) {
             DLY = .75;
@@ -134,9 +134,9 @@ public class TankDriveBernardo extends OpMode {
             robot.setMotorPower(-.75, .75, .75, -.75);
         }
         if (gamepad2.right_stick_y >= .9) {
-            robot.IntakeMotor.setPower(.55);
+            robot.IntakeMotor.setPower(-.55);
         } else if (gamepad2.right_stick_y <= -.9) {
-            robot.IntakeMotor.setPower(-.4);
+            robot.IntakeMotor.setPower(.55);
         } else {
             robot.IntakeMotor.setPower(0);
         }

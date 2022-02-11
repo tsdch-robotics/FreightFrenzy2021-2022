@@ -65,14 +65,14 @@ public class V3_1_RedAutonomous extends LinearOpMode {
         sleep(100);
         encoderStrafe(.5,13, Direction.left,3.0); //strafe left
         sleep(100);
-        encoderArm(0.7, 1700, 2); //arm up
+        encoderArm(0.7, 2500, 2); //arm up
         encoderArmHor(0.3, 500, 3); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
         encoderArmHor(0.3, -500, 3); //arm to center
         sleep(100);
-        encoderArm(0.6, -1600, 2); //arm back down
+        encoderArm(0.6, -2400, 2); //arm back down
         sleep(100);
         encoderStrafe(.5,6, Direction.right,3.0); //strafe right
         encoderStrafe(.2,12, Direction.right,3.0); //align against wall
