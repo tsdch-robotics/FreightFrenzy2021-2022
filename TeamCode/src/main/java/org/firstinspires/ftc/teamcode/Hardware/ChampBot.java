@@ -2,26 +2,15 @@ package org.firstinspires.ftc.teamcode.Hardware;
 
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.hardware.motors.RevRobotics20HdHexMotor;
-import com.qualcomm.hardware.motors.RevRobotics40HdHexMotor;
-import com.qualcomm.hardware.motors.RevRoboticsCoreHexMotor;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 import com.qualcomm.robotcore.hardware.TouchSensor;
-import com.qualcomm.robotcore.hardware.Servo;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import java.util.*;
-import com.qualcomm.robotcore.hardware.ColorSensor;
 
-// Vision imports
-import org.firstinspires.ftc.robotcore.external.navigation.VuforiaLocalizer;
-import org.firstinspires.ftc.robotcore.external.ClassFactory;
-import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.teamcode.TestFiles.PIDController;
 import org.firstinspires.ftc.teamcode.TestFiles.PIDControllerHor;
 
-import com.qualcomm.robotcore.eventloop.opmode.LinearOpMode;
+// Vision imports
 
 
 /*
@@ -35,15 +24,17 @@ public class ChampBot<Directionvector> {
     public static double khP = 0.001;
     public static double khI = 0;
     public static double khD = 0.00001;
+    //imu
+    public BNO055IMU imu;
     //Drive Motors
     public DcMotor DriveFrontLeft; //:D
     public DcMotor DriveFrontRight;
     public DcMotor DriveBackLeft;
     public DcMotor DriveBackRight;
-    public BNO055IMU imu;
     public DcMotor IntakeMotor;
     public DcMotorEx ArmMotorVert;
     public DcMotor ArmMotorHor;
+    public DcMotor CarouselMotor;
     //File Imports
     PIDController control = new PIDController(kvP, kvI, kvD);
     PIDControllerHor controlHor = new PIDControllerHor(khP, khI, khD);
@@ -66,6 +57,11 @@ public class ChampBot<Directionvector> {
         ArmMotorVert.setDirection(DcMotor.Direction.REVERSE);
         ArmMotorVert.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         ArmMotorVert.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+        CarouselMotor = hardwareMap.dcMotor.get("CarouselMotor");
+        CarouselMotor.setDirection(DcMotor.Direction.FORWARD);
+        CarouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
+        CarouselMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;

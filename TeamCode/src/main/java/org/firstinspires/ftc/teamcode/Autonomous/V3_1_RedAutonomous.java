@@ -53,14 +53,50 @@ public class V3_1_RedAutonomous extends LinearOpMode {
         waitForStart();
 
 
-        //robot.ArmServo.setPosition(0.34);
-        encoderStrafe(.5,7,Direction.left, 3.0); //straft left
-        encoderDrive(.2, 10, 10, 3.0); //drive slowly forward
-        encoderDrive(-.2, 10, 10, 3.0); //drive slowly backwards
-        encoderStrafe(.5,10,Direction.right, 3.0); //straft right
-        encoderDrive(.5, 29, 29, 3.0); //drive into warehouse
-        encoderDriveAndIntake(.2,10,10,4.0); //drive forward slowly while spinning intake wheel
-        encoderDrive(-.5, 32, 32, 3.0); //drive out of warehouse
+        encoderStrafe(.5,7, Direction.left,3.0); //strafe left
+        encoderDrive(.2,-8,-8,3); //back up to duck wheel
+        robot.CarouselMotor.setPower(.4);
+        sleep(2750);
+        robot.CarouselMotor.setPower(0);
+        encoderDrive(.3,10,10,3);
+        encoderStrafe(.2,10, Direction.right,3.0); //align against wall
+        sleep(100);
+        encoderDrive(.3,15,15,3.0); //align with wobble
+        sleep(100);
+        encoderStrafe(.5,13, Direction.left,3.0); //strafe left
+        sleep(100);
+        encoderArm(0.7, 1700, 2); //arm up
+        encoderArmHor(0.3, 500, 3); //arm to goal
+        robot.IntakeMotor.setPower(.3);
+        sleep(750);//drop block
+        robot.IntakeMotor.setPower(0);
+        encoderArmHor(0.3, -500, 3); //arm to center
+        sleep(100);
+        encoderArm(0.6, -1600, 2); //arm back down
+        sleep(100);
+        encoderStrafe(.5,6, Direction.right,3.0); //strafe right
+        encoderStrafe(.2,12, Direction.right,3.0); //align against wall
+        encoderDrive(.4,14,14,3.0); //dirve forward a bit
+        encoderDriveAndIntake(.2,14,14,3.0); //drive forward slowly while spinning intake wheel
+        sleep(200);
+        /*
+        encoderDrive(-.4,-25,-25,4.0); //drive backwards to original position
+        encoderStrafe(.3,20, Direction.right,4.0);
+
+        //second cycle
+        encoderStrafe(.5,14, Direction.left,3.0); //strafe left
+        sleep(100);
+        encoderArm(0.7, 1500, 2); //arm up
+        encoderArmHor(0.3, 500, 3); //arm to goal
+        robot.IntakeMotor.setPower(.3);
+        sleep(750);//drop block
+        robot.IntakeMotor.setPower(0);
+        encoderArmHor(0.3, -700, 3); //arm to center
+        sleep(500);
+        encoderArm(0.4, -700, 2); //arm back down
+
+         */
+
         //repeat
 
 
@@ -169,7 +205,7 @@ public class V3_1_RedAutonomous extends LinearOpMode {
             robot.DriveBackRight.setPower(Math.abs(speed));
 
             while (opModeIsActive() && (runtime.seconds() < timeoutS) && (robot.DriveFrontLeft.isBusy() && robot.DriveFrontRight.isBusy() && robot.DriveBackLeft.isBusy() && robot.DriveBackRight.isBusy()))
-                ;
+                robot.IntakeMotor.setPower(-.3);
             {
                 telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget, newFrontRightTarget, newBackLeftTarget, newBackRightTarget);
                 //telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", robot.DriveFrontLeft, robot.DriveFrontRight, robot.DriveBackLeft, robot.DriveBackRight);
@@ -320,6 +356,66 @@ public class V3_1_RedAutonomous extends LinearOpMode {
             robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.DriveBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.DriveBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            sleep(250);
+        }
+    }
+
+    public void encoderArm (double speed, double armTickCount, double timeoutS) {
+        int newArmTarget;
+
+        if (opModeIsActive()) {
+            newArmTarget = robot.ArmMotorVert.getCurrentPosition() + (int) (armTickCount);
+
+            robot.ArmMotorVert.setTargetPosition(newArmTarget);
+
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            runtime.reset();
+            robot.ArmMotorVert.setPower(Math.abs(speed));
+
+            while (opModeIsActive() && (runtime.seconds() < timeoutS) && (robot.ArmMotorVert.isBusy()))
+                ;
+            {
+                telemetry.addData("Path1", "Running to %7d", newArmTarget);
+                //telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", robot.DriveFrontLeft, robot.DriveFrontRight, robot.DriveBackLeft, robot.DriveBackRight);
+                telemetry.update();
+            }
+            robot.ArmMotorVert.setPower(0);
+
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            robot.ArmMotorVert.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            sleep(250);
+        }
+    }
+
+    public void encoderArmHor (double speed, double armTickCount, double timeoutS) {
+        int newArmTarget;
+
+        if (opModeIsActive()) {
+            newArmTarget = robot.ArmMotorHor.getCurrentPosition() + (int) (armTickCount);
+
+            robot.ArmMotorHor.setTargetPosition(newArmTarget);
+
+            robot.ArmMotorHor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
+
+            runtime.reset();
+            robot.ArmMotorHor.setPower(Math.abs(speed));
+
+            while (opModeIsActive() && (runtime.seconds() < timeoutS) && (robot.ArmMotorHor.isBusy()))
+                ;
+            {
+                telemetry.addData("Path1", "Running to %7d", newArmTarget);
+                //telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", robot.DriveFrontLeft, robot.DriveFrontRight, robot.DriveBackLeft, robot.DriveBackRight);
+                telemetry.update();
+            }
+            robot.ArmMotorHor.setPower(0);
+
+            robot.ArmMotorHor.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
+
+            robot.ArmMotorHor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
             sleep(250);
         }

@@ -1,18 +1,11 @@
 
 package org.firstinspires.ftc.teamcode.TeleOp;
 
-import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
-import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.eventloop.opmode.OpMode;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
-import com.qualcomm.robotcore.hardware.DcMotorSimple;
-import com.qualcomm.robotcore.util.ElapsedTime;
-import com.qualcomm.robotcore.hardware.Gamepad;
-import java.lang.*;
-import com.qualcomm.robotcore.hardware.ColorSensor;
+import com.qualcomm.robotcore.eventloop.opmode.TeleOp;
 import com.qualcomm.robotcore.hardware.DcMotor;
+import com.qualcomm.robotcore.util.ElapsedTime;
 
-import org.firstinspires.ftc.robotcore.internal.camera.delegating.DelegatingCaptureSequence;
 import org.firstinspires.ftc.teamcode.Hardware.ChampBot;
 
 
@@ -140,9 +133,9 @@ public class TankDriveBernardo extends OpMode {
         } else if (gamepad1.left_bumper) {
             robot.setMotorPower(-.75, .75, .75, -.75);
         }
-        if (gamepad2.dpad_up) {
-            robot.IntakeMotor.setPower(.4);
-        } else if (gamepad2.dpad_down) {
+        if (gamepad2.right_stick_y >= .9) {
+            robot.IntakeMotor.setPower(.55);
+        } else if (gamepad2.right_stick_y <= -.9) {
             robot.IntakeMotor.setPower(-.4);
         } else {
             robot.IntakeMotor.setPower(0);

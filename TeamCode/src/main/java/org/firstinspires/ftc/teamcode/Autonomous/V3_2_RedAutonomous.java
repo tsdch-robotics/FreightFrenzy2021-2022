@@ -6,9 +6,6 @@ import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.ChampBot;
-import org.firstinspires.ftc.teamcode.Hardware.ChampBot_v2;
-
-import java.lang.*;
 
 @Autonomous(name="V3_2_RedAutonomous", group="ChampBot")
 
@@ -64,8 +61,8 @@ public class V3_2_RedAutonomous extends LinearOpMode {
         sleep(100);
         encoderStrafe(.5,13, V3_2_RedAutonomous.Direction.left,3.0); //strafe left
         sleep(100);
-        encoderArm(0.5, 400, 2); //arm up
-        encoderArmHor(0.3, 300, 3); //arm to goal
+        encoderArm(0.7, 1000, 2); //arm up
+        encoderArmHor(0.3, 700, 3); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
