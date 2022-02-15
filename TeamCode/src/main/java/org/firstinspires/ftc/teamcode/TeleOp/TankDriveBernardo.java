@@ -15,6 +15,7 @@ public class TankDriveBernardo extends OpMode {
     public ElapsedTime runtime = new ElapsedTime();
     public int startingVertPos = 0;
     public int startingHorPos = 0;
+    public int CurrPos = 0;
 
     @Override
     public void init() {
@@ -80,16 +81,18 @@ public class TankDriveBernardo extends OpMode {
 */
 
         //arm controls
-        /*
-        if (gamepad2.a && !gamepad2.y ) {
-            robot.moveArmVertDown(startingVertPos);
-        }else if (gamepad2.y && !gamepad2.a) {
+
+        if (gamepad2.x && !gamepad2.y && CurrPos != 1) {
+            robot.moveArmVertDown(startingVertPos - 20 );
+            CurrPos = 1;
+        }else if (gamepad2.y && !gamepad2.x && CurrPos != 0) {
             robot.moveArmVertUp(startingVertPos + 2318);
+            CurrPos = 0;
         }else {
             robot.ArmMotorVert.setPower(0);
         }
 
-         */
+
 
         if (gamepad2.left_trigger > 0 && gamepad2.right_trigger == 0) {
             robot.ArmMotorVert.setPower(1);
@@ -150,7 +153,7 @@ public class TankDriveBernardo extends OpMode {
         telemetry.addData("FR Position: ", robot.DriveFrontRight.getCurrentPosition());
         telemetry.addData("BL position : ", robot.DriveBackLeft.getCurrentPosition());
         telemetry.addData("BR Position: ", robot.DriveBackRight.getCurrentPosition());
-        telemetry.addData("TeouchSensor: ", robot.touchSensor.getValue());
+        telemetry.addData("TeouchSensor: ", robot.touchSensor.getState());
     }
 
 }

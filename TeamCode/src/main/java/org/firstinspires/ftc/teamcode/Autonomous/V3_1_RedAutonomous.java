@@ -52,72 +52,61 @@ public class V3_1_RedAutonomous extends LinearOpMode {
 
         waitForStart();
 
-
-        encoderStrafe(.5,7, Direction.left,3.0); //strafe left
-        encoderDrive(.2,-8,-8,3); //back up to duck wheel
+/* original duck auto finished
+        encoderStrafe(.5,7, Direction.left,2.5); //strafe left
+        encoderDrive(.2,-8,-8,2); //back up to duck wheel
         robot.CarouselMotor.setPower(.4);
         sleep(2750);
         robot.CarouselMotor.setPower(0);
-        encoderDrive(.3,10,10,3);
-        encoderStrafe(.2,10, Direction.right,3.0); //align against wall
+        encoderDrive(.3,10,10,2);
+        encoderStrafe(.2,10, Direction.right,2.0); //align against wall
         sleep(100);
-        encoderDrive(.3,15,15,3.0); //align with wobble
+        encoderDrive(.3,15,15,2.0); //align with wobble
         sleep(100);
-        encoderStrafe(.5,13, Direction.left,3.0); //strafe left
+        encoderStrafe(.5,13, Direction.left,2.0); //strafe left
         sleep(100);
         encoderArm(0.7, 2500, 2); //arm up
-        encoderArmHor(0.3, 500, 3); //arm to goal
+        encoderArmHor(0.3, 500, 2.5); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
-        encoderArmHor(0.3, -500, 3); //arm to center
+        encoderArmHor(0.3, -500, 2); //arm to center
         sleep(100);
         encoderArm(0.6, -2400, 2); //arm back down
         sleep(100);
-        encoderStrafe(.5,6, Direction.right,3.0); //strafe right
-        encoderStrafe(.2,12, Direction.right,3.0); //align against wall
-        encoderDrive(.4,14,14,3.0); //dirve forward a bit
-        encoderDriveAndIntake(.2,14,14,3.0); //drive forward slowly while spinning intake wheel
+        encoderStrafe(.5,6, Direction.right,2.5); //strafe right
+        //cahnges here
+        encoderStrafe(.2,12, Direction.right,2.0); //align against wall
+        encoderDrive(.4,14,14,2.0); //dirve forward a bit
+        encoderDriveAndIntake(.2,14,14,2.5); //drive forward slowly while spinning intake wheel
         sleep(200);
-        /*
-        encoderDrive(-.4,-25,-25,4.0); //drive backwards to original position
-        encoderStrafe(.3,20, Direction.right,4.0);
-
-        //second cycle
-        encoderStrafe(.5,14, Direction.left,3.0); //strafe left
+*/
+        encoderStrafe(.5,7, Direction.left,2.5); //strafe left
+        encoderDrive(.2,-8,-8,2); //back up to duck wheel
+        robot.CarouselMotor.setPower(.4);
+        sleep(2750);
+        robot.CarouselMotor.setPower(0);
+        encoderDrive(.3,10,10,2);
+        encoderStrafe(.2,10, Direction.right,2.0); //align against wall
         sleep(100);
-        encoderArm(0.7, 1500, 2); //arm up
-        encoderArmHor(0.3, 500, 3); //arm to goal
+        encoderDrive(.3,15,15,2.0); //align with wobble
+        sleep(100);
+        encoderStrafe(.5,13, Direction.left,2.0); //strafe left
+        sleep(100);
+        encoderArm(0.7, 2500, 2); //arm up
+        encoderArmHor(0.3, 500, 2.5); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
-        encoderArmHor(0.3, -700, 3); //arm to center
-        sleep(500);
-        encoderArm(0.4, -700, 2); //arm back down
+        encoderArmHor(0.3, -500, 2); //arm to center
+        sleep(100);
+        encoderArm(0.6, -2400, 2); //arm back down
+        sleep(100);
+        encoderDrive(.4,-14,-14,2); //back up close to wall
+        encoderStrafe(.5,13, Direction.left,2.0); //strafe left
+        encoderDrive(.2,-5,-5,1.5); //align against wall
 
-         */
-
-        //repeat
-
-
-        //encoderDrive(.5, 29, 29, 3.0);
-        //encoderTurn(.5, 1, Direction.right, 1.0);
-        //encoderArm(.5,800,3.0);
-        //encoderDrive(.3, 9, 9, 3.0);
-        //robot.Claw.setPosition(1);
-        //sleep(500);
-        //encoderDrive(.5, -21,-21, 3.0);
-        //encoderTurn(.5,1.05,Direction.right,1.0);
-        //encoderDrive(.3,26,26,3.0);
-        //robot.CarouselMotor2.setPower(-.5);
-        //sleep(2500);
-        //robot.CarouselMotor2.setPower(0);
-        //encoderStrafe(.5,7,Direction.left, 3.0);
-        //encoderTurn(.5,1, Direction.left,1.0);
-        //encoderDrive(.5,47,47,5.0);
-        //encoderStrafe(.5,20, Direction.right,2.0);
-        //encoderDrive(.5,30,30,3.0);
-        //encoderStrafe(.5,20, Direction.left,2.0);
+        //cahnges here
 
         telemetry.addData("Path", "Complete");
         telemetry.update();

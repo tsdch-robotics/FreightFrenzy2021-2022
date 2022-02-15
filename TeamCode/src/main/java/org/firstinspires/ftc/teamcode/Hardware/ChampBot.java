@@ -4,8 +4,8 @@ import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
 import com.qualcomm.robotcore.hardware.DcMotorEx;
+import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
-import com.qualcomm.robotcore.hardware.TouchSensor;
 
 import org.firstinspires.ftc.teamcode.TestFiles.PIDController;
 import org.firstinspires.ftc.teamcode.TestFiles.PIDControllerHor;
@@ -41,7 +41,7 @@ public class ChampBot<Directionvector> {
     //Odometry Encoders
     //public Servo Carousel;
     //Sensors
-    public TouchSensor touchSensor;
+    public DigitalChannel touchSensor;
     //public ColorSensor color_sensor;
     //code time! :)
     private HardwareMap hardwareMap;
@@ -51,7 +51,7 @@ public class ChampBot<Directionvector> {
     public void init(HardwareMap ahwMap) {
         hardwareMap = ahwMap;
 
-        touchSensor = hardwareMap.touchSensor.get("touchSensor");
+        touchSensor = hardwareMap.get(DigitalChannel.class,"touchSensor");
 
         ArmMotorVert = hardwareMap.get(DcMotorEx.class, "ArmMotorVert");
         ArmMotorVert.setDirection(DcMotor.Direction.REVERSE);
@@ -161,7 +161,7 @@ public class ChampBot<Directionvector> {
     public void moveArmVertDown(double Target) {
         double target = Target;
         double error = target - ArmMotorVert.getCurrentPosition();
-        while (Math.abs(error) > 20) {
+        while (touchSensor.getState() == true) {
             double command = control.update(target, ArmMotorVert.getCurrentPosition());
             ArmMotorVert.setPower(command);
             error = target - ArmMotorVert.getCurrentPosition();

@@ -56,49 +56,49 @@ public class V3_2_RedAutonomous extends LinearOpMode {
 
 
         //first cycle
-        sleep(5000);
-        encoderDrive(.3,-8,-8,3.0);
+        //sleep(5000);
+        encoderDrive(.4,-7,-7,2.0);
         sleep(100);
-        encoderStrafe(.5,13, V3_2_RedAutonomous.Direction.left,3.0); //strafe left
+        encoderStrafe(.5,17, V3_2_RedAutonomous.Direction.left,2.5); //strafe left
         sleep(100);
-        encoderArm(0.7, 1000, 2); //arm up
-        encoderArmHor(0.3, 700, 3); //arm to goal
-        robot.IntakeMotor.setPower(.3);
-        sleep(750);//drop block
-        robot.IntakeMotor.setPower(0);
-        encoderArmHor(0.3, -500, 3); //arm to center
-        sleep(500);
-        encoderArm(0.15, -330, 2); //arm back down
-
-        encoderStrafe(.5,6, V3_2_RedAutonomous.Direction.right,3.0); //strafe right
-        encoderStrafe(.2,12, V3_2_RedAutonomous.Direction.right,3.0); //align against wall
-        sleep(200);
-        encoderDrive(.5,18,18,3.0); //dirve forward a bit
-        encoderDriveAndIntake(.2,14,14,-.3,3.0); //drive forward slowly while spinning intake wheel
-        sleep(500);
-        encoderDrive(-.5,-20,-20,4.0); //drive backwards to original position
-        encoderStrafe(.3,20, V3_2_RedAutonomous.Direction.right,4.0);
-
-        //second cycle
-        encoderDrive(.3,-6,-6,3.0);
-        sleep(100);
-        encoderStrafe(.5,14, V3_2_RedAutonomous.Direction.left,3.0); //strafe left
-        sleep(100);
-
-        encoderArm(0.5, 400, 2); //arm up
+        encoderArm(0.7, 2300, 2); //arm up
         encoderArmHor(0.3, 500, 3); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
         encoderArmHor(0.3, -500, 3); //arm to center
-        sleep(500);
-        encoderArm(0.15, -355, 2); //arm back down
+        sleep(100);
+        encoderArm(0.6, -2400, 2); //arm back down
 
-        encoderStrafe(.5,8, V3_2_RedAutonomous.Direction.right,3.0); //strafe right
-        encoderStrafe(.2,15, V3_2_RedAutonomous.Direction.right,3.0); //align against wall
+        encoderStrafe(.5,6, V3_2_RedAutonomous.Direction.right,2.0); //strafe right
+        encoderStrafe(.2,12, V3_2_RedAutonomous.Direction.right,2.5); //align against wall
         sleep(200);
-        encoderDrive(.5,15,15,3.0); //dirve forward a bit
-        encoderDriveAndIntake(.2,15,15,-.3,3.0); //drive forward slowly while spinning intake wheel
+        encoderDrive(.5,14,14,2.5); //dirve forward a bit
+        encoderDriveAndIntake(.2,14,14,-.5,2.5); //drive forward slowly while spinning intake wheel
+        sleep(300);
+        encoderDrive(-.5,-17,-17,4.0); //drive backwards to original position
+        encoderStrafe(.3,12, V3_2_RedAutonomous.Direction.right,2.0);
+
+        //second cycle
+        encoderDrive(.3,-7,-7,1.5);
+        sleep(100);
+        encoderStrafe(.5,17, V3_2_RedAutonomous.Direction.left,2.5); //strafe left
+        sleep(100);
+
+        encoderArm(0.7, 2500, 2); //arm up
+        encoderArmHor(0.3, 500, 3); //arm to goal
+        robot.IntakeMotor.setPower(.3);
+        sleep(750);//drop block
+        robot.IntakeMotor.setPower(0);
+        encoderArmHor(0.3, -500, 3); //arm to center
+        sleep(100);
+        encoderArm(0.6, -2400, 2); //arm back down
+
+        encoderStrafe(.5,8, V3_2_RedAutonomous.Direction.right,2.5); //strafe right
+        encoderStrafe(.2,10, V3_2_RedAutonomous.Direction.right,1.5); //align against wall
+        sleep(200);
+        encoderDrive(.5,12,12,2.0); //dirve forward a bit
+        encoderDriveAndIntake(.2,15,15,-.5,2.0); //drive forward slowly while spinning intake wheel
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
