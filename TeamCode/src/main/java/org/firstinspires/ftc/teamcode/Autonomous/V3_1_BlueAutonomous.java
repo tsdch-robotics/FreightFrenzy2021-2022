@@ -7,7 +7,6 @@ import com.qualcomm.robotcore.util.ElapsedTime;
 
 import org.firstinspires.ftc.teamcode.Hardware.ChampBot;
 
-
 import java.lang.*;
 
 @Autonomous(name="V3_1_BlueAutonomous", group="ChampBot")
@@ -18,8 +17,6 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
     static final double tickCount = 537.7;
     static final double wheelDiameter = 3.78; //in inches
     static final double countsPerInch = tickCount/(wheelDiameter*3.1415);
-    static final double driveSpeed = 1.0;
-    static final double strafeSpeed = 0.5;
     public DcMotor DriveFrontLeft; //:D
     public DcMotor DriveFrontRight;
     public DcMotor DriveBackLeft;
@@ -44,6 +41,7 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
         robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.DriveBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
         robot.DriveBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+        //robot.ArmMotor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         telemetry.addData("Path0", "Starting at %7d :%7d :%7d :%7d");
         robot.DriveFrontLeft.getCurrentPosition();
@@ -54,43 +52,65 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
 
         waitForStart();
 
-        sleep(250);
-        encoderDrive(.3,-10,-10,3.0);
-        sleep(500);
-        encoderStrafe(.5,18, Direction.left,3.0); //strafe left
-        sleep(500);
-        //drop block
-        encoderArm(0.7, 2300, 2); //arm up
-        encoderArmHor(0.3, 500, 3); //arm to goal
+/* original duck auto finished
+        encoderStrafe(.5,7, Direction.left,2.5); //strafe left
+        encoderDrive(.2,-8,-8,2); //back up to duck wheel
+        robot.CarouselMotor.setPower(.4);
+        sleep(2750);
+        robot.CarouselMotor.setPower(0);
+        encoderDrive(.3,10,10,2);
+        encoderStrafe(.2,10, Direction.right,2.0); //align against wall
+        sleep(100);
+        encoderDrive(.3,15,15,2.0); //align with wobble
+        sleep(100);
+        encoderStrafe(.5,13, Direction.left,2.0); //strafe left
+        sleep(100);
+        encoderArm(0.7, 2500, 2); //arm up
+        encoderArmHor(0.3, 500, 2.5); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
-        encoderArmHor(0.3, -500, 3); //arm to center
+        encoderArmHor(0.3, -500, 2); //arm to center
         sleep(100);
         encoderArm(0.6, -2400, 2); //arm back down
-        encoderStrafe(.5,13, Direction.right,3.0); //strafe right
-        encoderStrafe(.2,10, Direction.right,3.0); //align against wall
-        sleep(750);
-        encoderDrive(.5,15,15,3.0); //dirve forward a bit
-        encoderDriveAndIntake(.2,20,20,3.0); //drive forward slowly while spinning intake wheel
-        sleep(1000);
-        encoderDrive(-.5,-23,-23,4.0); //drive backwards to original position
-        encoderStrafe(.5,20, Direction.left,4.0);
+        sleep(100);
+        encoderStrafe(.5,6, Direction.right,2.5); //strafe right
+        //cahnges here
+        encoderStrafe(.2,12, Direction.right,2.0); //align against wall
+        encoderDrive(.4,14,14,2.0); //dirve forward a bit
+        encoderDriveAndIntake(.2,14,14,2.5); //drive forward slowly while spinning intake wheel
+        sleep(200);
+*/
+        encoderStrafe(.5,7, Direction.right,2.5); //strafe left
+        encoderDrive(.2,-8,-8,2); //back up to duck wheel
+        robot.CarouselMotor.setPower(.5);
+        sleep(3000);
+        robot.CarouselMotor.setPower(0);
+        encoderDrive(.3,10,10,2);
+        encoderStrafe(.2,10, Direction.left,2.0); //align against wall
+        sleep(100);
+        encoderDrive(.3,15,15,2.0); //align with wobble
+        sleep(100);
+        encoderStrafe(.5,16, Direction.right,2.0); //strafe left
+        sleep(100);
+        encoderArm(0.7, -2500, 2); //arm up
+        encoderArmHor(0.3, 400, 2.5); //arm to goal
+        robot.IntakeMotor.setPower(.3);
+        sleep(750);//drop block
+        robot.IntakeMotor.setPower(0);
+        encoderArmHor(0.3, -700, 2); //arm to center
+        sleep(100);
+        encoderArm(0.6, 2600, 2); //arm back down
+        sleep(100);
+        encoderDrive(.4,-21,-21,2); //back up close to wall
+        encoderStrafe(.5,15, Direction.right,2.0); //strafe left
+        encoderDrive(.2,-10,-10,1.5); //align against wall
+        // encoderStrafe(.2,13,Direction.left,2);
+        //robot.IntakeMotor.setPower(-.5);
+        //encoderDrive(.3,13,13,2);
+        //robot.IntakeMotor.setPower(0);
 
-        //second cycle
-        sleep(250);
-        encoderDrive(.3,-10,-10,3.0);
-        sleep(750);
-        encoderStrafe(.5,18, Direction.right,3.0); //strafe left
-        sleep(750);
-        sleep(1000);//drop block
-        encoderStrafe(.5,13, Direction.left,3.0); //strafe right
-        encoderStrafe(.2,10, Direction.left,3.0); //align against wall
-        sleep(750);
-        encoderDrive(.5,15,15,3.0); //dirve forward a bit
-        encoderDriveAndIntake(.2,20,20,3.0); //drive forward slowly while spinning intake wheel
-        sleep(1000);
-
+        //cahnges here
 
         telemetry.addData("Path", "Complete");
         telemetry.update();
@@ -178,7 +198,7 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
             robot.DriveBackRight.setPower(Math.abs(speed));
 
             while (opModeIsActive() && (runtime.seconds() < timeoutS) && (robot.DriveFrontLeft.isBusy() && robot.DriveFrontRight.isBusy() && robot.DriveBackLeft.isBusy() && robot.DriveBackRight.isBusy()))
-                ;
+                robot.IntakeMotor.setPower(-.3);
             {
                 telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", newFrontLeftTarget, newFrontRightTarget, newBackLeftTarget, newBackRightTarget);
                 //telemetry.addData("Path1", "Running to %7d :%7d :%7d :%7d", robot.DriveFrontLeft, robot.DriveFrontRight, robot.DriveBackLeft, robot.DriveBackRight);
@@ -198,6 +218,8 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
             robot.DriveFrontRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.DriveBackLeft.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
             robot.DriveBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
+
+            //robot.IntakeWheel.setPower(-0.4);
 
             sleep(250);
         }
@@ -420,6 +442,7 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
 
             sleep(250);
         }
+    }
 
      */
 }

@@ -121,14 +121,14 @@ public class TankDriveBernardo extends OpMode {
 
 
         if (gamepad1.left_stick_y >= .9) {
-            DLY = .75;
+            DLY = .85;
         } else if (gamepad1.left_stick_y <= -.9) {
-            DLY = -.75;
+            DLY = -.85;
         }
         if (gamepad1.right_stick_y >= .9) {
-            DRY = .75;
+            DRY = .85;
         } else if (gamepad1.right_stick_y <= -.9) {
-            DRY = -.75;
+            DRY = -.85;
         }
 
         if (gamepad1.right_bumper) {

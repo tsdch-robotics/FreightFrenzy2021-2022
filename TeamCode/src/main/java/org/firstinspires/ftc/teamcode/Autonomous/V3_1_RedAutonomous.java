@@ -83,28 +83,32 @@ public class V3_1_RedAutonomous extends LinearOpMode {
 */
         encoderStrafe(.5,7, Direction.left,2.5); //strafe left
         encoderDrive(.2,-8,-8,2); //back up to duck wheel
-        robot.CarouselMotor.setPower(.4);
-        sleep(2750);
+        robot.CarouselMotor.setPower(.5);
+        sleep(3000);
         robot.CarouselMotor.setPower(0);
         encoderDrive(.3,10,10,2);
         encoderStrafe(.2,10, Direction.right,2.0); //align against wall
         sleep(100);
         encoderDrive(.3,15,15,2.0); //align with wobble
         sleep(100);
-        encoderStrafe(.5,13, Direction.left,2.0); //strafe left
+        encoderStrafe(.5,16, Direction.left,2.0); //strafe left
         sleep(100);
         encoderArm(0.7, 2500, 2); //arm up
-        encoderArmHor(0.3, 500, 2.5); //arm to goal
+        encoderArmHor(0.3, 400, 2.5); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
-        encoderArmHor(0.3, -500, 2); //arm to center
+        encoderArmHor(0.3, -400, 2); //arm to center
         sleep(100);
-        encoderArm(0.6, -2400, 2); //arm back down
+        encoderArm(0.6, -2600, 2); //arm back down
         sleep(100);
-        encoderDrive(.4,-14,-14,2); //back up close to wall
-        encoderStrafe(.5,13, Direction.left,2.0); //strafe left
-        encoderDrive(.2,-5,-5,1.5); //align against wall
+        encoderDrive(.4,-21,-21,2); //back up close to wall
+        encoderStrafe(.5,15, Direction.left,2.0); //strafe left
+        encoderDrive(.2,-10,-10,1.5); //align against wall
+        // encoderStrafe(.2,13,Direction.left,2);
+        //robot.IntakeMotor.setPower(-.5);
+        //encoderDrive(.3,13,13,2);
+        //robot.IntakeMotor.setPower(0);
 
         //cahnges here
 
