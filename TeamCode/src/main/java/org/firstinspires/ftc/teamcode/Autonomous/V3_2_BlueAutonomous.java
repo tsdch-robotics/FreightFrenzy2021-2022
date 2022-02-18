@@ -66,18 +66,21 @@ public class V3_2_BlueAutonomous extends LinearOpMode {
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
-        encoderArmHor(0.3, 550, 3); //arm to center
+        encoderArmHor(0.3, 600, 3); //arm to center
         sleep(100);
-        encoderArm(0.6, -2700, 2); //arm back down
+        encoderArm(0.6, -2500, 2); //arm back down
         encoderStrafe(.5,6, Direction.left,2.0); //strafe right
         encoderStrafe(.2,14, Direction.left,2.5); //align against wall
         sleep(200);
         encoderDriveAndControl(.2,2,2,2.5);
         encoderDriveAndControl(.5,12,12,2.5);//dirve forward a bit
         robot.IntakeMotor.setPower(-.5);
-        encoderDrive(.2,14,14,2.5); //drive forward slowly while spinning intake wheel
+        encoderDrive(.2,12,12,2.5); //drive forward slowly while spinning intake wheel
         robot.IntakeMotor.setPower(0);
         sleep(300);
+        encoderStrafe(.2,20,Direction.right,2);
+
+        /*
         encoderDrive(-.5,-17,-17,4.0); //drive backwards to original position
         encoderStrafe(.3,12, Direction.left,2.0);
 
@@ -87,21 +90,21 @@ public class V3_2_BlueAutonomous extends LinearOpMode {
         encoderStrafe(.5,17, Direction.right,2.5); //strafe left
         sleep(100);
 
-        encoderArm(0.7, 2500, 2); //arm up
-        encoderArmHor(0.3, 500, 3); //arm to goal
+        encoderArm(0.7, 2550, 2); //arm up
+        encoderArmHor(0.3, -600, 3); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
-        encoderArmHor(0.3, -500, 3); //arm to center
+        encoderArmHor(0.3, 600, 3); //arm to center
         sleep(100);
-        encoderArm(0.6, -2400, 2); //arm back down
+        encoderArm(0.6, -2600, 2); //arm back down
 
         encoderStrafe(.5,8, Direction.left,2.5); //strafe right
         encoderStrafe(.2,10, Direction.left,1.5); //align against wall
         sleep(200);
         encoderDrive(.5,12,12,2.0); //dirve forward a bit
         encoderDriveAndIntake(.2,15,15,2.0); //drive forward slowly while spinning intake wheel
-
+*/
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
@@ -183,7 +186,7 @@ public class V3_2_BlueAutonomous extends LinearOpMode {
             robot.DriveBackRight.setMode(DcMotor.RunMode.RUN_TO_POSITION);
 
             runtime.reset();
-            robot.DriveFrontLeft.setPower(.73);
+            robot.DriveFrontLeft.setPower(.4);
             robot.DriveFrontRight.setPower(Math.abs(speed));
             robot.DriveBackLeft.setPower(Math.abs(speed));
             robot.DriveBackRight.setPower(Math.abs(speed));

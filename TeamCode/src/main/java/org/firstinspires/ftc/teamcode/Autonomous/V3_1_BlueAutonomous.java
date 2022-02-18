@@ -81,12 +81,23 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
         encoderDriveAndIntake(.2,14,14,2.5); //drive forward slowly while spinning intake wheel
         sleep(200);
 */
-        encoderStrafe(.5,7, Direction.right,2.5); //strafe left
-        encoderDrive(.2,-8,-8,2); //back up to duck wheel
-        robot.CarouselMotor.setPower(.5);
+        encoderDrive(.2,18,18,2); //back up to duck wheel
+        encoderArm(0.7, 2500, 2); //arm up
+        encoderArmHor(0.3, 500, 2.5); //arm to goal
+        robot.IntakeMotor.setPower(.3);
+        sleep(1000);//drop block
+        robot.IntakeMotor.setPower(0);
+        encoderArmHor(0.3, -475, 2); //arm to center
+        sleep(100);
+        encoderArm(0.6, -2600, 2); //arm back down
+        encoderStrafe(.6,20,Direction.right,2.0);
+        encoderStrafe(.2,5,Direction.right,1.5);
+        encoderDrive(.2,-12,-12,2);
+        robot.CarouselMotor.setPower(-.5);
         sleep(3000);
         robot.CarouselMotor.setPower(0);
-        encoderDrive(.3,10,10,2);
+        encoderDrive(.3,8,8,2);
+        /*
         encoderStrafe(.2,10, Direction.left,2.0); //align against wall
         sleep(100);
         encoderDrive(.3,15,15,2.0); //align with wobble
@@ -111,7 +122,7 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
         //robot.IntakeMotor.setPower(0);
 
         //cahnges here
-
+*/
         telemetry.addData("Path", "Complete");
         telemetry.update();
     }
