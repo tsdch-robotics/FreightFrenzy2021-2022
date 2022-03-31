@@ -66,17 +66,17 @@ public class V3_2_RedAutonomous extends LinearOpMode {
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);
-        encoderArmHor(0.3, -450, 3); //arm to center
+        encoderArmHor(0.3, -500, 3); //arm to center
         sleep(100);
         encoderArm(0.6, -2400, 2); //arm back down
 
-        encoderStrafe(.5,6, V3_2_RedAutonomous.Direction.right,2.0); //strafe right
+        encoderStrafe(.5,6, V3_2_RedAutonomous.Direction.right,1.5); //strafe right
         encoderStrafe(.2,12, V3_2_RedAutonomous.Direction.right,2.5); //align against wall
         sleep(200);
         encoderDrive(.5,14,14,2.5); //dirve forward a bit
         encoderDriveAndIntake(.2,14,14,-.5,2.5); //drive forward slowly while spinning intake wheel
         sleep(300);
-        encoderDrive(-.5,-17,-17,4.0); //drive backwards to original position
+        encoderDrive(-.5,-17,-17,3.0); //drive backwards to original position
         encoderStrafe(.3,12, V3_2_RedAutonomous.Direction.right,2.0);
 
         //second cycle
@@ -86,7 +86,7 @@ public class V3_2_RedAutonomous extends LinearOpMode {
         sleep(100);
 
         encoderArm(0.7, 2500, 2); //arm up
-        encoderArmHor(0.3, 500, 3); //arm to goal
+        encoderArmHor(0.3, 600, 3); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(750);//drop block
         robot.IntakeMotor.setPower(0);

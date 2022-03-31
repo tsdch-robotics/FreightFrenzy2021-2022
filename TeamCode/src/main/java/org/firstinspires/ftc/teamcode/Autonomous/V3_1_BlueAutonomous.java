@@ -82,17 +82,17 @@ public class V3_1_BlueAutonomous extends LinearOpMode {
         sleep(200);
 */
         encoderDrive(.2,18,18,2); //back up to duck wheel
-        encoderArm(0.7, 2500, 2); //arm up
+        encoderArm(0.7, 2550, 2); //arm up
         encoderArmHor(0.3, 500, 2.5); //arm to goal
         robot.IntakeMotor.setPower(.3);
         sleep(1000);//drop block
         robot.IntakeMotor.setPower(0);
         encoderArmHor(0.3, -475, 2); //arm to center
         sleep(100);
-        encoderArm(0.6, -2600, 2); //arm back down
-        encoderStrafe(.6,20,Direction.right,2.0);
+        encoderArm(0.6, -2550, 2); //arm back down
+        encoderStrafe(.6,23,Direction.right,2.0);
         encoderStrafe(.2,5,Direction.right,1.5);
-        encoderDrive(.2,-12,-12,2);
+        encoderDrive(.2,-13,-13,2);
         robot.CarouselMotor.setPower(-.5);
         sleep(3000);
         robot.CarouselMotor.setPower(0);
