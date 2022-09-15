@@ -3,7 +3,6 @@ package org.firstinspires.ftc.teamcode.Hardware;
 import com.qualcomm.hardware.bosch.BNO055IMU;
 import com.qualcomm.hardware.bosch.JustLoggingAccelerationIntegrator;
 import com.qualcomm.robotcore.hardware.DcMotor;
-import com.qualcomm.robotcore.hardware.DcMotorEx;
 import com.qualcomm.robotcore.hardware.DigitalChannel;
 import com.qualcomm.robotcore.hardware.HardwareMap;
 
@@ -27,12 +26,12 @@ public class ChampBot<Directionvector> {
     //imu
     public BNO055IMU imu;
     //Drive Motors
-    public DcMotor DriveFrontLeft; //:D
+    public DcMotor DriveFrontLeft;
     public DcMotor DriveFrontRight;
     public DcMotor DriveBackLeft;
     public DcMotor DriveBackRight;
     public DcMotor IntakeMotor;
-    public DcMotorEx ArmMotorVert;
+    public DcMotor ArmMotorVert;
     public DcMotor ArmMotorHor;
     public DcMotor CarouselMotor;
     //File Imports
@@ -52,16 +51,6 @@ public class ChampBot<Directionvector> {
         hardwareMap = ahwMap;
 
         touchSensor = hardwareMap.get(DigitalChannel.class,"touchSensor");
-
-        ArmMotorVert = hardwareMap.get(DcMotorEx.class, "ArmMotorVert");
-        ArmMotorVert.setDirection(DcMotor.Direction.REVERSE);
-        ArmMotorVert.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        ArmMotorVert.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
-
-        CarouselMotor = hardwareMap.dcMotor.get("CarouselMotor");
-        CarouselMotor.setDirection(DcMotor.Direction.FORWARD);
-        CarouselMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.FLOAT);
-        CarouselMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
         BNO055IMU.Parameters parameters = new BNO055IMU.Parameters();
         parameters.angleUnit = BNO055IMU.AngleUnit.DEGREES;
@@ -94,15 +83,6 @@ public class ChampBot<Directionvector> {
         DriveBackRight.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
         DriveBackRight.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
-        IntakeMotor = hardwareMap.dcMotor.get("IntakeMotor");
-        IntakeMotor.setDirection(DcMotor.Direction.REVERSE);
-        IntakeMotor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        IntakeMotor.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
-
-        ArmMotorHor = hardwareMap.dcMotor.get("ArmMotorHor");
-        ArmMotorHor.setDirection(DcMotor.Direction.REVERSE);
-        ArmMotorHor.setZeroPowerBehavior(DcMotor.ZeroPowerBehavior.BRAKE);
-        ArmMotorHor.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
         //Carousel = hardwareMap.servo.get("Claw");
 
@@ -146,37 +126,4 @@ public class ChampBot<Directionvector> {
         setMotorPower(p, p, p, p);
     }
 
-
-    public void moveArmVertUp(double Target) {
-        double target = Target;
-        double error = target - ArmMotorVert.getCurrentPosition();
-        while (Math.abs(error) > 20) {
-            double command = control.update(target, ArmMotorVert.getCurrentPosition());
-            ArmMotorVert.setPower(command);
-            error = target - ArmMotorVert.getCurrentPosition();
-        }
-        ArmMotorVert.setPower(0);
-    }
-
-    public void moveArmVertDown(double Target) {
-        double target = Target;
-        double error = target - ArmMotorVert.getCurrentPosition();
-        while (touchSensor.getState() == true) {
-            double command = control.update(target, ArmMotorVert.getCurrentPosition());
-            ArmMotorVert.setPower(command);
-            error = target - ArmMotorVert.getCurrentPosition();
-        }
-        ArmMotorVert.setPower(0);
-    }
-
-    public void moveArmHor(double Target) {
-        double target = Target;
-        double error = target - ArmMotorHor.getCurrentPosition();
-        while (Math.abs(error) > 20) {
-            double command = controlHor.update(target, ArmMotorHor.getCurrentPosition());
-            ArmMotorHor.setPower(command);
-            error = target - ArmMotorHor.getCurrentPosition();
-        }
-        ArmMotorHor.setPower(0);
-    }
 }
